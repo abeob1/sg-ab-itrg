@@ -1,0 +1,20 @@
+[01/04/2017 18:55:05][      GetSystemIntializeInfo()] Starting Function
+[01/04/2017 18:55:13][      GetSystemIntializeInfo()] Completed with SUCCESS
+[01/04/2017 18:55:24][      ConnectToTargetCompany()] Starting function
+[01/04/2017 18:55:25][      ConnectToTargetCompany()] Initializing the Company Object
+[01/04/2017 18:55:29][      ConnectToTargetCompany()] Assigning the representing database name
+[01/04/2017 18:55:57][      ConnectToTargetCompany()] Connecting to the Company Database.
+[01/04/2017 18:59:00][      GetSystemIntializeInfo()] Starting Function
+[01/04/2017 18:59:00][      GetSystemIntializeInfo()] Completed with SUCCESS
+[01/04/2017 18:59:00][      ConnectToTargetCompany()] Starting function
+[01/04/2017 18:59:00][      ConnectToTargetCompany()] Initializing the Company Object
+[01/04/2017 18:59:00][      ConnectToTargetCompany()] Assigning the representing database name
+[01/04/2017 18:59:10][      ConnectToTargetCompany()] Connecting to the Company Database.
+[01/04/2017 18:59:24][      ConnectToTargetCompany()] Completed with SUCCESS
+[01/04/2017 19:32:14][      GetSystemIntializeInfo()] Starting Function
+[01/04/2017 19:32:14][      GetSystemIntializeInfo()] Completed with SUCCESS
+[01/04/2017 19:32:14][      ConnectToTargetCompany()] Starting function
+[01/04/2017 19:32:14][      ConnectToTargetCompany()] Initializing the Company Object
+[01/04/2017 19:32:15][      ConnectToTargetCompany()] Assigning the representing database name
+[01/04/2017 19:32:15][      ConnectToTargetCompany()] Connecting to the Company Database.
+[01/04/2017 19:32:25][      ConnectToTargetCompany()] Completed with SUCCESS
