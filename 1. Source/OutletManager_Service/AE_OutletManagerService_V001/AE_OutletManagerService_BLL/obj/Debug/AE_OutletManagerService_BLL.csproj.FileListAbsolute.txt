@@ -1,0 +1,4 @@
+E:\VIVEK\OutletManager_Service\AE_OutletManagerService_V001\AE_OutletManagerService_BLL\bin\Debug\AE_OutletManagerService_BLL.dll
+E:\VIVEK\OutletManager_Service\AE_OutletManagerService_V001\AE_OutletManagerService_BLL\bin\Debug\AE_OutletManagerService_BLL.pdb
+E:\VIVEK\OutletManager_Service\AE_OutletManagerService_V001\AE_OutletManagerService_BLL\obj\Debug\AE_OutletManagerService_BLL.dll
+E:\VIVEK\OutletManager_Service\AE_OutletManagerService_V001\AE_OutletManagerService_BLL\obj\Debug\AE_OutletManagerService_BLL.pdb

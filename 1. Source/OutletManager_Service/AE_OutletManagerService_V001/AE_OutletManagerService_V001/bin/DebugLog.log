@@ -1,0 +1,22 @@
+[4/18/2017 11:13:12 AM][] Starting Function
+[4/18/2017 11:13:12 AM][] Execute SQLcall "AE_SP001_GETALLUSERS"
+[4/18/2017 11:13:12 AM][] Completed with ERROR
+[4/18/2017 11:13:34 AM][] Starting Function
+[4/18/2017 11:13:36 AM][] Execute SQLcall "AE_SP001_GETALLUSERS"
+[4/18/2017 11:13:57 AM][] Completed with ERROR
+[4/18/2017 11:14:55 AM][] Starting Function
+[4/18/2017 11:14:56 AM][] Execute SQLcall "AE_SP001_GETALLUSERS"
+[4/18/2017 11:15:00 AM][ExecuteSQLQuery()] SQL Query : call "AE_SP001_GETALLUSERS"
+[4/18/2017 11:15:00 AM][ExecuteSQLQuery()] Before adding Parameters
+[4/18/2017 11:15:00 AM][ExecuteSQLQuery()] After adding parameters
+[4/18/2017 11:15:01 AM][ExecuteSQLQuery()] Completed with SUCCESS
+[4/18/2017 11:15:27 AM][] Ending Function
+[4/18/2017 11:49:24 AM][] Starting Function
+[4/18/2017 11:49:24 AM][] Execute SQLcall "AE_SP001_GETALLUSERS"
+[4/18/2017 11:49:25 AM][ExecuteSQLQuery()] SQL Query : call "AE_SP001_GETALLUSERS"
+[4/18/2017 11:49:25 AM][ExecuteSQLQuery()] Before adding Parameters
+[4/18/2017 11:49:25 AM][ExecuteSQLQuery()] After adding parameters
+[4/18/2017 11:49:25 AM][ExecuteSQLQuery()] Completed with SUCCESS
+[4/18/2017 11:49:25 AM][] Before Serializing the Company List 
+[4/18/2017 11:49:25 AM][] After Serializing the Company List , the Serialized data is ' [{"USERCODE":"manager","USERNAME":"manager","DEFAULTENTITY":"OUTLETMANAGER_DEV","DEFAULTBRANCHCODE":"BR001","DEFAULTDEPTCODE":"FOH","PASSWORD":"1234","LOCKED":"0","DEFAULTAPPROVALLEVEL":"0","APPROVALSCOPE":"Designated Branch","LANGUAGE":"ENGLISH"}] '
+[4/18/2017 11:49:25 AM][] Ending Function

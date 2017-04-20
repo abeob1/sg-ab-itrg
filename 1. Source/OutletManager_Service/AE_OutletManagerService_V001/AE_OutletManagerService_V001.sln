@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AE_OutletManagerService_V001", "AE_OutletManagerService_V001\AE_OutletManagerService_V001.csproj", "{610E6776-C756-4867-9D7D-4EF540E3EADD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AE_OutletManagerService_BLL", "AE_OutletManagerService_BLL\AE_OutletManagerService_BLL.csproj", "{FF1FD186-2271-4AC8-8245-7FCCC024FAC8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{610E6776-C756-4867-9D7D-4EF540E3EADD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{610E6776-C756-4867-9D7D-4EF540E3EADD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{610E6776-C756-4867-9D7D-4EF540E3EADD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{610E6776-C756-4867-9D7D-4EF540E3EADD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF1FD186-2271-4AC8-8245-7FCCC024FAC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF1FD186-2271-4AC8-8245-7FCCC024FAC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF1FD186-2271-4AC8-8245-7FCCC024FAC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF1FD186-2271-4AC8-8245-7FCCC024FAC8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link href="../CSS/Style.css" rel="stylesheet" type="text/css">
+    <link href="../CSS/LoginPage.css" rel="stylesheet" type="text/css">
+    <link href="../CSS/font-awesome.css" rel="stylesheet" type='text/css'>
+    <link href="../CSS/bootstrap.css" rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <script src="../Scripts/Default/jquery-1.11.1.min.js"></script>
+    <script src="../packages/AngularJS.Core.1.6.4/content/Scripts/angular.js"></script>
+    <script src="../packages/AngularJS.Core.1.6.4/content/Scripts/angular.min.js"></script>
+    <script src="../Scripts/Default/angular-route.js"></script>
+    <script src="../Scripts/Default/angular-ui-router.js"></script>
+    <script src="../Scripts/Default/ocLazyLoad.js"></script>
+    <script src="../Scripts/Default/ui-bootstrap.js"></script>
+    <script src="../Scripts/Default/ui-bootstrap-tpls-0.9.0.js"></script>
+    <script src="../Scripts/Default/angular-cookies.js"></script>
+    <script src="../Scripts/Default/hotkeys.js"></script>
+    <script src="../Scripts/js/Login.js"></script>
+    <script src="../Scripts/config/app.js"></script>
+    <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic'
+        rel='stylesheet' type='text/css'>
+    <title>Login Page</title>
+</head>
+<body ng-app="myApp">
+    <div class="main">
+        <div class="container">
+            <center>
+                <div class="middle">
+                    <div id="login">
+                        <form action="javascript:void(0);" method="get">
+                        <fieldset class="clearfix">
+                            <p>
+                                <span class="fa fa-user"></span>
+                                <input type="text" placeholder="Username" required></p>
+                            <!-- JS because of IE support; better: placeholder="Username" -->
+                            <p>
+                                <span class="fa fa-lock"></span>
+                                <input type="password" placeholder="Password" required></p>
+                            <!-- JS because of IE support; better: placeholder="Password" -->
+                            <p>
+                                <span class="fa fa-lock"></span>
+                                <input type="password" placeholder="Password" required></p>
+                            <!--<p>
+                                <select id="ddlLanguage" placeholder="Language" required>
+                                    <option id="English" value="English">English</option>
+                                    <option id="Chinense" value="Chinense">Chinense</option>
+                                    <option id="korean" value="korean">korean</option>
+                                    <option id="Vietnamese" value="Vietnamese">Vietnamese</option>
+                                </select>
+                            </p>-->
+                    </div>
+                    <div>
+                        <span style="width: 48%; text-align: left; display: inline-block;"><a class="small-text"
+                            href="#">Forgot password?</a></span> <span style="width: 50%; text-align: right;
+                                display: inline-block;">
+                                <input type="submit" value="Sign In"></span>
+                    </div>
+                    </fieldset>
+                    <div class="clearfix">
+                    </div>
+                    </form>
+                    <div class="clearfix">
+                    </div>
+                </div>
+                <!-- end login -->
+                <div class="logo">
+                    <img id="logo" alt="harrys" runat="server" src="../Images/logo.png" />
+                    <div class="clearfix">
+                    </div>
+                </div>
+        </div>
+        </center>
+    </div>
+    </div>
+</body>
+</html>
