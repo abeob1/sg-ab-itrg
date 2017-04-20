@@ -33784,3 +33784,62 @@
 [03/08/2017 11:44:35][                ConnectToTargetCompany()] Assigning the Representing Database Details
 [03/08/2017 11:44:35][                ConnectToTargetCompany()] Connecting to the Company Database.. ICSB_DEV1
 [03/08/2017 11:44:36][                ConnectToTargetCompany()] Company Connected Successfully..
+[03/14/2017 13:53:27][                                  Main()] Starting Addon startup function
+[03/14/2017 13:53:28][                                  Main()] Initializing public SBO Application object
+[03/14/2017 13:53:28][                                  Main()] Retriving SBO application company handle
+[03/14/2017 13:53:28][                                  Main()] Retrived SBO application company handle
+[03/14/2017 13:53:28][                                  Main()] Calling ConnectDICompSSO()
+[03/14/2017 13:53:28][                      ConnectDICompSSO()] Starting function
+[03/14/2017 13:53:31][                      ConnectDICompSSO()] Completed with SUCCESS
+[03/14/2017 13:53:31][                                  Main()] Creating Event handler class
+[03/14/2017 13:53:31][                      Class_Initialize()] Starting function
+[03/14/2017 13:53:31][                      Class_Initialize()] Retriving SBO Application handle
+[03/14/2017 13:53:31][                      Class_Initialize()] Completed with SUCCESS
+[03/14/2017 13:53:31][                                  Main()] Calling AddMenuItems()
+[03/14/2017 13:53:33][                                  Main()] Calling SetApplication Function
+[03/14/2017 13:53:33][                                  Main()] Creating Tables and Fields... 
+[03/31/2017 14:24:18][                                  Main()] Starting Addon startup function
+[03/31/2017 14:24:19][                                  Main()] Initializing public SBO Application object
+[03/31/2017 14:24:19][                                  Main()] Retriving SBO application company handle
+[03/31/2017 14:24:19][                                  Main()] Retrived SBO application company handle
+[03/31/2017 14:24:19][                                  Main()] Calling ConnectDICompSSO()
+[03/31/2017 14:24:19][                      ConnectDICompSSO()] Starting function
+[03/31/2017 14:24:23][                      ConnectDICompSSO()] Completed with SUCCESS
+[03/31/2017 14:24:23][                                  Main()] Creating Event handler class
+[03/31/2017 14:24:23][                      Class_Initialize()] Starting function
+[03/31/2017 14:24:23][                      Class_Initialize()] Retriving SBO Application handle
+[03/31/2017 14:24:23][                      Class_Initialize()] Completed with SUCCESS
+[03/31/2017 14:24:23][                                  Main()] Calling AddMenuItems()
+[03/31/2017 14:24:25][                                  Main()] Calling SetApplication Function
+[03/31/2017 14:24:25][                                  Main()] Creating Tables and Fields... 
+[03/31/2017 14:24:26][                                  Main()] Addon started successfully
+[03/31/2017 14:24:26][                                  Main()] Initializing Recordset 
+[03/31/2017 16:52:36][                                  Main()] Starting Addon startup function
+[03/31/2017 16:52:36][                                  Main()] Initializing public SBO Application object
+[03/31/2017 16:52:36][                                  Main()] Retriving SBO application company handle
+[03/31/2017 16:52:37][                                  Main()] Retrived SBO application company handle
+[03/31/2017 16:52:37][                                  Main()] Calling ConnectDICompSSO()
+[03/31/2017 16:52:37][                      ConnectDICompSSO()] Starting function
+[03/31/2017 16:52:40][                      ConnectDICompSSO()] Completed with SUCCESS
+[03/31/2017 16:52:40][                                  Main()] Creating Event handler class
+[03/31/2017 16:52:40][                      Class_Initialize()] Starting function
+[03/31/2017 16:52:40][                      Class_Initialize()] Retriving SBO Application handle
+[03/31/2017 16:52:41][                      Class_Initialize()] Completed with SUCCESS
+[03/31/2017 16:52:41][                                  Main()] Calling AddMenuItems()
+[03/31/2017 16:52:41][                                  Main()] Calling SetApplication Function
+[03/31/2017 16:52:41][                                  Main()] Creating Tables and Fields... 
+[03/31/2017 16:52:41][                                  Main()] Addon started successfully
+[03/31/2017 16:52:41][                                  Main()] Initializing Recordset 
+[03/31/2017 16:52:51][             SBO_Application_MenuEvent()] Completed with SUCCESS
+[03/31/2017 16:52:55][              Load_Replication_Details()] Starting function
+[03/31/2017 16:52:55][              Load_Replication_Details()] Calling Replication Details()
+[03/31/2017 16:52:55][              Load_Replication_Details()] SQL select  ROW_NUMBER() OVER (ORDER BY T0."UNIQUEID") AS "ROW", T0."UNIQUEID", T0."TRANSTYPE", T0."CODE", T0."NAME", T0."SYNCSTATUS" from "INTEGRATION" T0 WHERE T0."MASTERTYPE" = case 'B' when 'B' THEN 'BPMASTER' WHEN 'I' THEN 'ITEMMASTER' WHEN 'F' THEN 'FINANCEMASTER' END AND T0."SYNCSTATUS" = 'NO'
+[03/31/2017 16:52:55][              Load_Replication_Details()] Completed with SUCCESS
+[03/31/2017 16:53:00][              Load_Replication_Details()] Starting function
+[03/31/2017 16:53:00][              Load_Replication_Details()] Calling Replication Details()
+[03/31/2017 16:53:00][              Load_Replication_Details()] SQL select  ROW_NUMBER() OVER (ORDER BY T0."UNIQUEID") AS "ROW", T0."UNIQUEID", T0."TRANSTYPE", T0."CODE", T0."NAME", T0."SYNCSTATUS" from "INTEGRATION" T0 WHERE T0."MASTERTYPE" = case 'I' when 'B' THEN 'BPMASTER' WHEN 'I' THEN 'ITEMMASTER' WHEN 'F' THEN 'FINANCEMASTER' END AND T0."SYNCSTATUS" = 'NO'
+[03/31/2017 16:53:01][              Load_Replication_Details()] Completed with SUCCESS
+[03/31/2017 16:53:07][              Load_Replication_Details()] Starting function
+[03/31/2017 16:53:07][              Load_Replication_Details()] Calling Replication Details()
+[03/31/2017 16:53:07][              Load_Replication_Details()] SQL select  ROW_NUMBER() OVER (ORDER BY T0."UNIQUEID") AS "ROW", T0."UNIQUEID", T0."TRANSTYPE", T0."CODE", T0."NAME", T0."SYNCSTATUS" from "INTEGRATION" T0 WHERE T0."MASTERTYPE" = case 'F' when 'B' THEN 'BPMASTER' WHEN 'I' THEN 'ITEMMASTER' WHEN 'F' THEN 'FINANCEMASTER' END AND T0."SYNCSTATUS" = 'NO'
+[03/31/2017 16:53:07][              Load_Replication_Details()] Completed with SUCCESS

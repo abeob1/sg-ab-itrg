@@ -4760,7 +4760,7 @@ Namespace AE_ITRG_AO01
                                                         For U As Integer = 0 To oOutGoingPay.Invoices.Count - 1
                                                             Dim ARInvNo As String = ""
                                                             oTargetIncomingPay.Invoices.SetCurrentLine(U)
-                                                            oTargetIncomingPay.Invoices.InvoiceType = oOutGoingPay.Invoices.InvoiceType
+                                                            oTargetIncomingPay.Invoices.InvoiceType = SAPbobsCOM.BoRcptInvTypes.it_Invoice
                                                             Dim InvEntry As String = oOutGoingPay.Invoices.DocEntry.ToString
                                                             Dim oApInvNo As SAPbobsCOM.Recordset = p_oDICompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
                                                             oApInvNo.DoQuery(String.Format("Select ""U_RDocNum"" from ""OPCH"" where ""DocEntry"" = '{0}'", InvEntry))
