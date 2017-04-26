@@ -45,7 +45,7 @@ namespace AE_OutletManagerService_V001
                 sSQL = string.Format("call \"AE_SP001_GETALLUSERS\"");
 
                 oLog.WriteToDebugLogFile("Execute SQL" + sSQL, sFuncName);
-                OdbcParameter[] Param = new OdbcParameter[0];
+                OdbcParameter[] Param = new OdbcParameter[0]; 
                 dtResult = oCommon.ExecuteSQLQuery(sSQL, sCompany, Param);
                 List<Users> lstUsers = new List<Users>();
                 if (dtResult.Rows.Count > 0)
