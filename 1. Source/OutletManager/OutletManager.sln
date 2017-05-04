@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "OutletManager", ".", "{786AD004-450B-4F5C-8A49-A8E7DB804CF3}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "OutletManager", ".", "{3D54A98B-6BB8-4792-BFD2-6A7FA83BA490}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		Debug.AspNetCompiler.VirtualPath = "/OutletManager"
@@ -18,7 +18,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "OutletManager", ".", "{786A
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "39446"
+		VWDPort = "51945"
 	EndProjectSection
 EndProject
 Global
@@ -26,8 +26,8 @@ Global
 		Debug|Any CPU = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{786AD004-450B-4F5C-8A49-A8E7DB804CF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{786AD004-450B-4F5C-8A49-A8E7DB804CF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D54A98B-6BB8-4792-BFD2-6A7FA83BA490}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D54A98B-6BB8-4792-BFD2-6A7FA83BA490}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
