@@ -1,0 +1,143 @@
+CREATE PROCEDURE "AE_SP001_GETALLUSERS"
+AS
+BEGIN
+SELECT * FROM "@AE_TB001_USERS";
+END;
+********************************************************
+
+CREATE PROCEDURE AE_SP002_VALIDUSER(
+IN username NVARCHAR(20),
+IN password NVARCHAR(100)
+)
+LANGUAGE SQLSCRIPT
+
+AS
+BEGIN
+
+DECLARE found INT := 1;
+DECLARE Result INT;
+
+SELECT count(*) INTO found FROM "AI_USERS" WHERE USERCODE=:username AND PASSWORD=:password;
+
+IF :found = 1
+    THEN
+        Result = 1;
+    ELSE IF :found = 0
+	    THEN
+	    	IF :username <> ''
+	    	THEN
+	    	SELECT count(*) INTO found FROM "AI_USERS" WHERE USERCODE=:username;
+				IF :found = 0
+				THEN
+			  		Result = 2; --INCORRECT USERNAME
+			  	ELSE
+			  		Result = 0;
+			  	END IF;
+			END IF;
+		
+			IF :password <> ''
+			THEN
+			SELECT count(*) INTO found FROM "AI_USERS" WHERE PASSWORD=:password;
+				IF :found = 0
+				THEN
+			  		Result = 3; --INCORRECT PASSWORD
+			  	ELSE
+			  		Result = 0;
+			  	END IF;
+			END IF;
+		END IF;
+END IF;
+
+SELECT Result AS "Result" FROM DUMMY;
+
+END;
+***********************************************************************************
+
+CREATE PROCEDURE AE_SP002_VALIDUSER_VIVEK_DONTDELETE(
+IN username NVARCHAR(20),
+IN password NVARCHAR(100)
+)
+LANGUAGE SQLSCRIPT
+
+AS
+BEGIN
+DECLARE found INT := 1;
+SELECT count(*) INTO found FROM "AI_USERS" WHERE USERCODE=:username AND PASSWORD=:password;
+
+IF :found = 0
+    THEN   
+		SELECT 'Failure' AS "Result",'Invalid UserName/ Password' AS "DisplayMessage" FROM DUMMY;
+    ELSE
+    	SELECT 'Success' AS "Result",'Login Successfull' AS "DisplayMessage" FROM DUMMY;
+END IF;
+
+END;
+******************************************************************************************
+
+CREATE PROCEDURE AE_SP003_CREATEUSER(
+	IN usercode NVARCHAR(20),
+	IN username NVARCHAR(100),
+	IN defaultentity NVARCHAR(20),
+	IN defaultbranchcode NVARCHAR(8),
+	IN defaultdeptcode NVARCHAR(20),
+	IN password NVARCHAR(100),
+	IN locked VARCHAR(3),
+	IN defaultapprovallevel VARCHAR(1),
+	IN approvalscope VARCHAR(100),
+	IN _language VARCHAR(100)
+	)
+	
+LANGUAGE SQLSCRIPT
+AS
+
+BEGIN
+
+	DECLARE Counter INT := 0;
+	
+	SELECT count("USERCODE") INTO Counter FROM "AI_USERS" WHERE "USERCODE"=:usercode;
+	
+	IF :Counter = 0 THEN 
+		INSERT INTO "AI_USERS" 
+		VALUES(:usercode,:username,:defaultentity,:defaultbranchcode,:defaultdeptcode,:password,
+		:locked,:defaultapprovallevel,:approvalscope,:_language);
+	ELSE 
+		UPDATE "AI_USERS" SET "USERNAME" = :username, "DEFAULTENTITY" = :defaultentity, "DEFAULTBRANCHCODE" = :defaultbranchcode, 
+		"DEFAULTDEPTCODE" = :defaultdeptcode, "PASSWORD" = :password, "LOCKED" = :locked, 
+		"DEFAULTAPPROVALLEVEL" = :defaultapprovallevel, "APPROVAL SCOPE" = :approvalscope, "LANGUAGE" = :_language
+		WHERE "USERCODE" = :usercode;
+	END IF;	
+	
+END;
+************************************************************************************************
+
+********** Tables *****************************
+CREATE COLUMN TABLE "OUTLETMANAGER_DEV"."AI_USERS" ("USERCODE" NVARCHAR(20) NOT NULL ,
+	 "USERNAME" NVARCHAR(100) NOT NULL ,
+	 "DEFAULTENTITY" NVARCHAR(20) NOT NULL ,
+	 "DEFAULTBRANCHCODE" NVARCHAR(8) NOT NULL ,
+	 "DEFAULTDEPTCODE" NVARCHAR(20) NOT NULL ,
+	 "PASSWORD" NVARCHAR(100) NOT NULL ,
+	 "LOCKED" VARCHAR(3),
+	 "DEFAULTAPPROVALLEVEL" VARCHAR(1) NOT NULL ,
+	 "APPROVAL SCOPE" VARCHAR(100),
+	 "LANGUAGE" VARCHAR(100),
+	 PRIMARY KEY ("USERCODE")) UNLOAD PRIORITY 5 AUTO MERGE 
+***********************************************************************************
+
+CREATE COLUMN TABLE "OUTLETMANAGER_DEV"."AI_USERENTITY" ("USERCODE" NVARCHAR(20),
+	 "ENTITYCODE" NVARCHAR(20)) UNLOAD PRIORITY 5 AUTO MERGE 
+*********************************************************************************
+
+CREATE COLUMN TABLE "OUTLETMANAGER_DEV"."AI_ENTITYMASTER" ("ENTITYCODE" NVARCHAR(20),
+	 "ENTITYNAME" NVARCHAR(100)) UNLOAD PRIORITY 5 AUTO MERGE 
+**********************************************************************
+
+CREATE COLUMN TABLE "OUTLETMANAGER_DEV"."AI_DEPARTMENT" ("DEPTCODE" NVARCHAR(20),
+	 "WHSCODE" NVARCHAR(20)) UNLOAD PRIORITY 5 AUTO MERGE 
+***********************************************************************************
+
+CREATE COLUMN TABLE "OUTLETMANAGER_DEV"."AI_BRANCH" ("BRANCHCODE" NVARCHAR(20),
+	 "BRANCHNAME" NVARCHAR(100),
+	 "COSTCENTER" NVARCHAR(20),
+	 "WAREHOUSECODE" NVARCHAR(20)) UNLOAD PRIORITY 5 AUTO MERGE 
+*****************************************************************************
