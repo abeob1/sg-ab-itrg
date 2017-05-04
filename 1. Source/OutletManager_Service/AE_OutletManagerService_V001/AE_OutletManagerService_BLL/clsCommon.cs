@@ -153,6 +153,47 @@ namespace AE_OutletManagerService_BLL
             return "SUCCESS";
         }
 
+        public Int16 ExecuteNonQuery_DR(string sQuery, OdbcParameter[] param)
+        {
+            string sFuncName = "ExecuteNonQuery_DR";
+            Int16 iResult = 0;
+
+            if (p_iDebugMode == DEBUG_ON) oLog.WriteToDebugLogFile("Starting Function", sFuncName);
+            string sConstr = ConfigurationManager.ConnectionStrings["DBConnection"].ToString();
+            System.Data.Odbc.OdbcConnection oCon = new System.Data.Odbc.OdbcConnection(sConstr);
+            System.Data.Odbc.OdbcCommand oCmd = new System.Data.Odbc.OdbcCommand();
+            DbDataReader oDr;
+
+            try
+            {
+                oCon.Open();
+                oCmd.CommandType = CommandType.Text;
+                oCmd.CommandText = sQuery;
+                if (p_iDebugMode == DEBUG_ON) oLog.WriteToDebugLogFile("SQL Query : " + sQuery, sFuncName);
+                if (p_iDebugMode == DEBUG_ON) oLog.WriteToDebugLogFile("Before adding Parameters", sFuncName);
+                foreach (var item in param)
+                {
+                    oCmd.Parameters.Add(item);
+                }
+                if (p_iDebugMode == DEBUG_ON) oLog.WriteToDebugLogFile("After adding parameters", sFuncName);
+
+                oCmd.Connection = oCon;
+                oCmd.CommandTimeout = 120;
+                oDr = oCmd.ExecuteReader();
+                iResult = Convert.ToInt16(oDr[0]);
+                oCon.Close();
+                if (p_iDebugMode == DEBUG_ON) oLog.WriteToDebugLogFile("Completed with SUCCESS", sFuncName);
+            }
+            catch (Exception ex)
+            {
+                if (p_iDebugMode == DEBUG_ON) oLog.WriteToDebugLogFile("Completed with ERROR", sFuncName);
+                oCon.Dispose();
+                throw new Exception(ex.Message);
+            }
+            return iResult;
+        }
+
+
         #endregion
     }
 }

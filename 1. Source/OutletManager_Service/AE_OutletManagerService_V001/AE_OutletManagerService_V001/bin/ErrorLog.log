@@ -2,3 +2,19 @@
 [4/18/2017 11:13:12 AM][                              ] Object reference not set to an instance of an object.
 [4/18/2017 11:13:57 AM][                              ] Object reference not set to an instance of an object.
 [4/18/2017 11:13:57 AM][                              ] Object reference not set to an instance of an object.
+[4/20/2017 1:13:53 PM][                              ] ERROR [S1000] [SAP AG][LIBODBCHDB32 DLL][HDBODBC32] General error;430 invalidated procedure: AE_SP001_GETALLUSERS: line 1 col 6 (at pos 5)
+[4/26/2017 4:08:02 PM][                CheckValidUser] ERROR [S1000] [SAP AG][LIBODBCHDB32 DLL][HDBODBC32] General error;1281 wrong number or types of parameters in call: USERNAME is not bound: line 1 col 6 (at pos 5)
+[4/26/2017 4:08:16 PM][                CheckValidUser] ERROR [S1000] [SAP AG][LIBODBCHDB32 DLL][HDBODBC32] General error;1281 wrong number or types of parameters in call: USERNAME is not bound: line 1 col 6 (at pos 5)
+[4/26/2017 4:09:52 PM][                CheckValidUser] ERROR [S1000] [SAP AG][LIBODBCHDB32 DLL][HDBODBC32] General error;1281 wrong number or types of parameters in call: USERNAME is not bound: line 1 col 6 (at pos 5)
+[4/26/2017 4:30:09 PM][                CheckValidUser] ERROR [42000] [SAP AG][LIBODBCHDB32 DLL][HDBODBC32] Syntax error or access violation;257 sql syntax error: incorrect syntax near "manager": line 1 col 26 (at pos 26)
+[4/26/2017 4:32:47 PM][                CheckValidUser] ERROR [42000] [SAP AG][LIBODBCHDB32 DLL][HDBODBC32] Syntax error or access violation;257 sql syntax error: incorrect syntax near ":sUserName": line 1 col 26 (at pos 26)
+[4/26/2017 4:34:06 PM][                CheckValidUser] ERROR [42000] [SAP AG][LIBODBCHDB32 DLL][HDBODBC32] Syntax error or access violation;257 sql syntax error: incorrect syntax near ":sUserName": line 1 col 26 (at pos 26)
+[5/2/2017 4:11:13 PM][                CheckValidUser] ERROR [S1000] [SAP AG][LIBODBCHDB32 DLL][HDBODBC32] General error;260 invalid column name: MANAGER: line 1 col 27 (at pos 26)
+[5/2/2017 4:14:07 PM][                CheckValidUser] ERROR [S1000] [SAP AG][LIBODBCHDB32 DLL][HDBODBC32] General error;1281 wrong number or types of parameters in call: PASSWORD is not bound: line 1 col 6 (at pos 5)
+[5/2/2017 4:15:53 PM][                CheckValidUser] ERROR [42000] [SAP AG][LIBODBCHDB32 DLL][HDBODBC32] Syntax error or access violation;257 sql syntax error: unterminated quoted string literal: line 1 col 27 (at pos 27)
+[5/2/2017 4:19:33 PM][                CheckValidUser] ERROR [S1000] [SAP AG][LIBODBCHDB32 DLL][HDBODBC32] General error;1281 wrong number or types of parameters in call: PASSWORD is not bound: line 1 col 6 (at pos 5)
+[5/2/2017 4:33:14 PM][                CheckValidUser] ERROR [42000] [SAP AG][LIBODBCHDB32 DLL][HDBODBC32] Syntax error or access violation;257 sql syntax error: unterminated quoted string literal: line 1 col 27 (at pos 27)
+[5/2/2017 4:35:13 PM][                CheckValidUser] ERROR [S1000] [SAP AG][LIBODBCHDB32 DLL][HDBODBC32] General error;1281 wrong number or types of parameters in call: PASSWORD is not bound: line 1 col 6 (at pos 5)
+[5/2/2017 4:36:55 PM][                CheckValidUser] Unable to cast object of type 'System.Data.Odbc.OdbcDataReader' to type 'System.IConvertible'.
+[5/2/2017 4:41:53 PM][                CheckValidUser] No data exists for the row/column.
+[5/2/2017 4:45:28 PM][                CheckValidUser] Invalid attempt to call Read when reader is closed.

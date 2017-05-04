@@ -7,6 +7,7 @@ using System;
 using System.Text.RegularExpressions;
 using AE_OutletManagerService_BLL;
 using System.Data.Odbc;
+using System.Data.Common;
 
 namespace AE_OutletManagerService_V001
 {
@@ -88,6 +89,94 @@ namespace AE_OutletManagerService_V001
                 Context.Response.Output.Write(js.Serialize(lstResult));
             }
         }
+
+        //Vikrant - 26/04/2017
+        //Created to check whether log in user is valid or not
+        [WebMethod]
+        public string CheckValidUser(string sUserName, string sPassword)
+        {
+            string sResult = string.Empty;
+            int iValid = 0;
+            try
+            {
+                sFuncName = "CheckValidUser";
+                oLog.WriteToDebugLogFile("Validate Login Function", sFuncName);
+                
+                sSQL = string.Format("call \"AE_SP002_VALIDUSER\"('" + sUserName + "','" + sPassword + "')");
+
+                oLog.WriteToDebugLogFile("Execute SQL" + sSQL, sFuncName);
+                OdbcParameter[] Param = new OdbcParameter[0];
+
+                iValid = oCommon.ExecuteNonQuery_DR(sSQL, Param);
+                
+                if(iValid == 1)
+                {
+                    sResult = "SUCCESS";
+                }
+                else if (iValid == 2)
+                {
+                    sResult = "INCORRECT USERNAME";
+                }
+                else if (iValid == 3)
+                {
+                    sResult = "INCORRECT PASSWORD";
+                }
+                else 
+                {
+                    sResult = "FAILURE";
+                }
+
+                oLog.WriteToDebugLogFile("Ending Function", sFuncName);
+            }
+            catch (Exception ex)
+            {
+                sErrDesc = ex.Message.ToString();
+                oLog.WriteToErrorLogFile(sErrDesc, sFuncName);
+                oLog.WriteToDebugLogFile("Completed With ERROR  ", sFuncName);
+                result objResult = new result();
+                objResult.Result = "Error";
+                objResult.DisplayMessage = sErrDesc;
+                lstResult.Add(objResult);
+                Context.Response.Output.Write(js.Serialize(lstResult));
+            }
+
+            return sResult;
+        }
+
+        //Vikrant - 03/05/2017
+        //Created to create new user
+        [WebMethod]
+        public void CreateUser(string sUserCode, string sUserName, string sDefaultEntity, string sDefaultBranchCode, string sDefaultDeptCode, string sPassword, string sLocked, string sDefaultApprovalLevel, string sApprovalScope, string sLanguage)
+        {
+            string sCompany = string.Empty;
+            string sResult = string.Empty;
+            sFuncName = "CreateUser";
+
+            try
+            {
+                oLog.WriteToDebugLogFile("Create New User Function", sFuncName);
+
+                sSQL = string.Format("call \"AE_SP003_CREATEUSER\"('" + sUserCode + "','" + sUserName + "','" + sDefaultEntity + "','" + sDefaultBranchCode + "','" + sDefaultDeptCode + "','" + sPassword + "','" + sLocked + "','" + sDefaultApprovalLevel + "','" + sApprovalScope + "','" + sLanguage + "')");
+
+                oLog.WriteToDebugLogFile("Execute SQL" + sSQL, sFuncName);
+                OdbcParameter[] Param = new OdbcParameter[0];
+                oCommon.ExecuteQuery(sSQL, sCompany, Param);
+                
+                oLog.WriteToDebugLogFile("Ending Function", sFuncName);
+            }
+            catch (Exception ex)
+            {
+                sErrDesc = ex.Message.ToString();
+                oLog.WriteToErrorLogFile(sErrDesc, sFuncName);
+                oLog.WriteToDebugLogFile("Completed With ERROR  ", sFuncName);
+                result objResult = new result();
+                objResult.Result = "Error";
+                objResult.DisplayMessage = sErrDesc;
+                lstResult.Add(objResult);
+                Context.Response.Output.Write(js.Serialize(lstResult));
+            }
+        }
+
 
         #endregion
 
