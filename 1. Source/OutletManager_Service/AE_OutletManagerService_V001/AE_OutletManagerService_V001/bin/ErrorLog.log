@@ -18,3 +18,11 @@
 [5/2/2017 4:36:55 PM][                CheckValidUser] Unable to cast object of type 'System.Data.Odbc.OdbcDataReader' to type 'System.IConvertible'.
 [5/2/2017 4:41:53 PM][                CheckValidUser] No data exists for the row/column.
 [5/2/2017 4:45:28 PM][                CheckValidUser] Invalid attempt to call Read when reader is closed.
+[5/12/2017 3:27:59 AM][                    CreateUser] ERROR [S1000] [SAP AG][LIBODBCHDB32 DLL][HDBODBC32] General error;328 invalid name of function or procedure: AE_SP003_CREATEUSER: line 1 col 6 (at pos 5)
+[5/12/2017 3:34:13 AM][                    CreateUser] ERROR [S1000] [SAP AG][LIBODBCHDB32 DLL][HDBODBC32] General error;328 invalid name of function or procedure: AE_SP003_CREATEUSER: line 1 col 6 (at pos 5)
+[5/12/2017 3:49:04 AM][                    CreateUser] ERROR [S1000] [SAP AG][LIBODBCHDB32 DLL][HDBODBC32] General error;328 invalid name of function or procedure: AE_SP003_CREATEUSER: line 1 col 6 (at pos 5)
+[5/12/2017 7:19:24 PM][                    CreateUser] ERROR [S1000] [SAP AG][LIBODBCHDB32 DLL][HDBODBC32] General error;328 invalid name of function or procedure: AE_SP003_CREATEUSER: line 1 col 6 (at pos 5)
+[5/12/2017 10:05:55 PM][                              ] ERROR [HY000] [SAP AG][LIBODBCHDB32 DLL][HDBODBC32] General error;-10821 Session not connected
+ERROR [HY000] [SAP AG][LIBODBCHDB32 DLL][HDBODBC32] General error;-10821 Session not connected
+[5/12/2017 10:07:04 PM][                CheckValidUser] No data exists for the row/column.
+[5/12/2017 10:08:01 PM][                CheckValidUser] No data exists for the row/column.

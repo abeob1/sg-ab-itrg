@@ -157,7 +157,7 @@ namespace AE_OutletManagerService_V001
                 oLog.WriteToDebugLogFile("Create New User Function", sFuncName);
 
                 sSQL = string.Format("call \"AE_SP003_CREATEUSER\"('" + sUserCode + "','" + sUserName + "','" + sDefaultEntity + "','" + sDefaultBranchCode + "','" + sDefaultDeptCode + "','" + sPassword + "','" + sLocked + "','" + sDefaultApprovalLevel + "','" + sApprovalScope + "','" + sLanguage + "')");
-
+                
                 oLog.WriteToDebugLogFile("Execute SQL" + sSQL, sFuncName);
                 OdbcParameter[] Param = new OdbcParameter[0];
                 oCommon.ExecuteQuery(sSQL, sCompany, Param);

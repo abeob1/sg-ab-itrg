@@ -12,3 +12,10 @@ C:\Solutions_SVN\ITRG Latest\1. Source\OutletManager_Service\AE_OutletManagerSer
 C:\Solutions_SVN\ITRG Latest\1. Source\OutletManager_Service\AE_OutletManagerService_V001\AE_OutletManagerService_V001\obj\Debug\AE_OutletManagerService_V001.csprojResolveAssemblyReference.cache
 C:\Solutions_SVN\ITRG Latest\1. Source\OutletManager_Service\AE_OutletManagerService_V001\AE_OutletManagerService_V001\obj\Debug\AE_OutletManagerService_V001.dll
 C:\Solutions_SVN\ITRG Latest\1. Source\OutletManager_Service\AE_OutletManagerService_V001\AE_OutletManagerService_V001\obj\Debug\AE_OutletManagerService_V001.pdb
+E:\SVN\ITRG\1. Source\OutletManager_Service\AE_OutletManagerService_V001\AE_OutletManagerService_V001\bin\AE_OutletManagerService_V001.dll
+E:\SVN\ITRG\1. Source\OutletManager_Service\AE_OutletManagerService_V001\AE_OutletManagerService_V001\bin\AE_OutletManagerService_V001.pdb
+E:\SVN\ITRG\1. Source\OutletManager_Service\AE_OutletManagerService_V001\AE_OutletManagerService_V001\bin\AE_OutletManagerService_BLL.dll
+E:\SVN\ITRG\1. Source\OutletManager_Service\AE_OutletManagerService_V001\AE_OutletManagerService_V001\bin\AE_OutletManagerService_BLL.pdb
+E:\SVN\ITRG\1. Source\OutletManager_Service\AE_OutletManagerService_V001\AE_OutletManagerService_V001\obj\Debug\AE_OutletManagerService_V001.csprojResolveAssemblyReference.cache
+E:\SVN\ITRG\1. Source\OutletManager_Service\AE_OutletManagerService_V001\AE_OutletManagerService_V001\obj\Debug\AE_OutletManagerService_V001.dll
+E:\SVN\ITRG\1. Source\OutletManager_Service\AE_OutletManagerService_V001\AE_OutletManagerService_V001\obj\Debug\AE_OutletManagerService_V001.pdb
