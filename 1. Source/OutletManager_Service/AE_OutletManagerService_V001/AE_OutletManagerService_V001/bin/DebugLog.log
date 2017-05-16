@@ -211,3 +211,40 @@
 [5/12/2017 10:08:01 PM][ExecuteNonQuery_DR] After adding parameters
 [5/12/2017 10:08:01 PM][ExecuteNonQuery_DR] Completed with ERROR
 [5/12/2017 10:08:01 PM][CheckValidUser] Completed With ERROR  
+[5/15/2017 8:05:24 PM][CheckValidUser] Validate Login Function
+[5/15/2017 8:05:24 PM][CheckValidUser] Execute SQLcall "AE_SP002_VALIDUSER"('manager','1234')
+[5/15/2017 8:05:24 PM][ExecuteNonQuery_DR] Starting Function
+[5/15/2017 8:05:24 PM][ExecuteNonQuery_DR] SQL Query : call "AE_SP002_VALIDUSER"('manager','1234')
+[5/15/2017 8:05:24 PM][ExecuteNonQuery_DR] Before adding Parameters
+[5/15/2017 8:05:24 PM][ExecuteNonQuery_DR] After adding parameters
+[5/15/2017 8:05:25 PM][ExecuteNonQuery_DR] Completed with ERROR
+[5/15/2017 8:05:25 PM][CheckValidUser] Completed With ERROR  
+[5/15/2017 8:05:59 PM][CheckValidUser] Validate Login Function
+[5/15/2017 8:05:59 PM][CheckValidUser] Execute SQLcall "AE_SP002_VALIDUSER"('manager','1234')
+[5/15/2017 8:05:59 PM][ExecuteNonQuery_DR] Starting Function
+[5/15/2017 8:05:59 PM][ExecuteNonQuery_DR] SQL Query : call "AE_SP002_VALIDUSER"('manager','1234')
+[5/15/2017 8:05:59 PM][ExecuteNonQuery_DR] Before adding Parameters
+[5/15/2017 8:05:59 PM][ExecuteNonQuery_DR] After adding parameters
+[5/15/2017 8:05:59 PM][ExecuteNonQuery_DR] Completed with ERROR
+[5/15/2017 8:06:20 PM][ExecuteNonQuery_DR] Starting Function
+[5/15/2017 8:06:25 PM][ExecuteNonQuery_DR] SQL Query : call "AE_SP002_VALIDUSER"('manager','1234')
+[5/15/2017 8:06:26 PM][ExecuteNonQuery_DR] Before adding Parameters
+[5/15/2017 8:06:29 PM][ExecuteNonQuery_DR] After adding parameters
+[5/15/2017 8:07:02 PM][ExecuteNonQuery_DR] Completed with SUCCESS
+[5/15/2017 8:07:25 PM][CheckValidUser] Ending Function
+[5/15/2017 8:08:26 PM][CheckValidUser] Validate Login Function
+[5/15/2017 8:08:26 PM][CheckValidUser] Execute SQLcall "AE_SP002_VALIDUSER"('manager','1234')
+[5/15/2017 8:08:26 PM][ExecuteNonQuery_DR] Starting Function
+[5/15/2017 8:08:26 PM][ExecuteNonQuery_DR] SQL Query : call "AE_SP002_VALIDUSER"('manager','1234')
+[5/15/2017 8:08:26 PM][ExecuteNonQuery_DR] Before adding Parameters
+[5/15/2017 8:08:26 PM][ExecuteNonQuery_DR] After adding parameters
+[5/15/2017 8:08:26 PM][ExecuteNonQuery_DR] Completed with ERROR
+[5/15/2017 8:08:26 PM][CheckValidUser] Completed With ERROR  
+[5/15/2017 8:08:42 PM][CheckValidUser] Validate Login Function
+[5/15/2017 8:08:42 PM][CheckValidUser] Execute SQLcall "AE_SP002_VALIDUSER"('manager','12345')
+[5/15/2017 8:08:42 PM][ExecuteNonQuery_DR] Starting Function
+[5/15/2017 8:08:42 PM][ExecuteNonQuery_DR] SQL Query : call "AE_SP002_VALIDUSER"('manager','12345')
+[5/15/2017 8:08:42 PM][ExecuteNonQuery_DR] Before adding Parameters
+[5/15/2017 8:08:42 PM][ExecuteNonQuery_DR] After adding parameters
+[5/15/2017 8:08:42 PM][ExecuteNonQuery_DR] Completed with ERROR
+[5/15/2017 8:08:42 PM][CheckValidUser] Completed With ERROR  

@@ -26,3 +26,6 @@
 ERROR [HY000] [SAP AG][LIBODBCHDB32 DLL][HDBODBC32] General error;-10821 Session not connected
 [5/12/2017 10:07:04 PM][                CheckValidUser] No data exists for the row/column.
 [5/12/2017 10:08:01 PM][                CheckValidUser] No data exists for the row/column.
+[5/15/2017 8:05:25 PM][                CheckValidUser] No data exists for the row/column.
+[5/15/2017 8:08:26 PM][                CheckValidUser] No data exists for the row/column.
+[5/15/2017 8:08:42 PM][                CheckValidUser] No data exists for the row/column.
