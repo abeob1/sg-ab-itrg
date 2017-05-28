@@ -1,10 +1,7 @@
 App.service('util_SERVICE', ['$http', '$window', '$cookieStore', '$rootScope', function ($http, $window, $cookie, $rootScope) {
     var urlsd = window.location.href.split("/");
-    this.url = "http://192.168.0.38:85/Logistics.asmx/";
-	this.Host = "http://192.168.0.38:85/";
-	//this.url = "http://54.179.45.219:3993/Logistics.asmx/";
-	//this.Host = "http://54.179.45.219:3993/";
-	//this.Host = "http://localhost:8012/drivercall/";
+    this.url = "http://119.73.138.58:85/Master.asmx/";
+	this.Host = "http://119.73.138.58:85/";
 	
     this.config = {
         headers: {

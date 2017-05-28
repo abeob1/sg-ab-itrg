@@ -13,24 +13,26 @@
         rel='stylesheet' type='text/css' />
     <!-- Styles -->
     <!--Angular JS -->
-    <script src="../Scripts/Default/jquery-1.11.1.min.js" type="text/javascript"></script>
-    <script src="../packages/AngularJS.Core.1.6.4/content/Scripts/angular.js" type="text/javascript"></script>
-    <script src="../packages/AngularJS.Core.1.6.4/content/Scripts/angular.min.js" type="text/javascript"></script>
-    <script src="../Scripts/Default/angular-route.js" type="text/javascript"></script>
-    <script src="../Scripts/Default/angular-ui-router.js" type="text/javascript"></script>
-    <script src="../Scripts/Default/ocLazyLoad.js" type="text/javascript"></script>
-    <script src="../Scripts/Default/ui-bootstrap.js" type="text/javascript"></script>
-    <script src="../Scripts/Default/ui-bootstrap-tpls-0.9.0.js" type="text/javascript"></script>
-    <script src="../Scripts/Default/angular-cookies.js" type="text/javascript"></script>
-    <script src="../Scripts/Default/hotkeys.js" type="text/javascript"></script>
+    <script src="../Scripts/libs/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="../Scripts/libs/angular.js" type="text/javascript"></script>
+    <script src="../Scripts/libs/angular-route.js" type="text/javascript"></script>
+    <script src="../Scripts/libs/angular-ui-router.js" type="text/javascript"></script>
+    <script src="../Scripts/libs/ocLazyLoad.js" type="text/javascript"></script>
+    <script src="../Scripts/libs/ui-bootstrap.js" type="text/javascript"></script>
+    <script src="../Scripts/libs/ui-bootstrap-tpls-0.9.0.js" type="text/javascript"></script>
+    <script src="../Scripts/libs/angular-cookies.js" type="text/javascript"></script>
+    <!-- angular js short cut keys-->
+    <script src="../Scripts/libs/hotkeys.js" type="text/javascript"></script>
     <!--Angular JS -->
     <!-- User Defined JS-->
-    <script src="../Scripts/js/Login.js" type="text/javascript"></script>
     <script src="../Scripts/config/app.js" type="text/javascript"></script>
+    <script src="../Scripts/Services/util_factory.js" type="text/javascript"></script>
+    <script src="../Scripts/js/Login.js" type="text/javascript"></script>
+    <script src="../Scripts/Ctrl/Login_ctrl.js" type="text/javascript"></script>
     <!-- User Defined JS-->
     <title>Login Page</title>
 </head>
-<body ng-app="myApp" ng-controller="login">
+<body ng-app="myApp" ng-controller="Login_ctrl">
     <div class="main">
         <div class="container">
             <center>
@@ -40,7 +42,7 @@
                         <fieldset class="clearfix">
                             <p>
                                 <span class="fa fa-user"></span>
-                                <input type="text" ng-model="userId" placeholder="Username" required /></p>
+                                <input type="text" ng-model="userId" placeholder="Username" required/></p>
                             <!-- JS because of IE support; better: placeholder="Username"
 -->
                             <p>
@@ -48,9 +50,9 @@
                                 <input type="password" ng-model="password" placeholder="Password" required /></p>
                             <div>
                                 <span style="width: 48%; text-align: left; display: inline-block;"><a class="small-text"
-                                    href="#">Forgot password?</a></span> <span style="width: 50%; text-align: right;
+                                    href="#"></a></span> <span style="width: 50%; text-align: right;
                                         display: inline-block;">
-                                        <input type="submit" value="Sign In" ng-click="checklogin();"/></span>
+                                        <input type="submit" value="Sign In" ng-click="checklogin();" /></span>
                             </div>
                         </fieldset>
                         <div class="clearfix">
