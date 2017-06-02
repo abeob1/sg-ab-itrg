@@ -248,3 +248,90 @@
 [5/15/2017 8:08:42 PM][ExecuteNonQuery_DR] After adding parameters
 [5/15/2017 8:08:42 PM][ExecuteNonQuery_DR] Completed with ERROR
 [5/15/2017 8:08:42 PM][CheckValidUser] Completed With ERROR  
+[5/16/2017 11:29:52 PM][CheckValidUser] Validate Login Function
+[5/16/2017 11:29:52 PM][CheckValidUser] Getting the Json Input 1 from web  '[{"sUserName":"manager","sPassword":"1234"}]'
+[5/16/2017 11:29:52 PM][JsonStringToDataTable()] Starting Function 
+[5/16/2017 11:29:52 PM][CheckValidUser] Execute SQLcall "AE_SP002_VALIDUSER"('manager','1234')
+[5/16/2017 11:29:53 PM][ExecuteNonQuery_DR] Starting Function
+[5/16/2017 11:29:53 PM][ExecuteNonQuery_DR] SQL Query : call "AE_SP002_VALIDUSER"('manager','1234')
+[5/16/2017 11:29:53 PM][ExecuteNonQuery_DR] Before adding Parameters
+[5/16/2017 11:29:53 PM][ExecuteNonQuery_DR] After adding parameters
+[5/16/2017 11:29:53 PM][ExecuteNonQuery_DR] Completed with ERROR
+[5/16/2017 11:29:53 PM][CheckValidUser] Completed With ERROR  
+[5/16/2017 11:30:50 PM][CheckValidUser] Validate Login Function
+[5/16/2017 11:30:51 PM][CheckValidUser] Getting the Json Input 1 from web  '[{"sUserName":"manager","sPassword":"1234"}]'
+[5/16/2017 11:30:52 PM][JsonStringToDataTable()] Starting Function 
+[5/16/2017 11:31:05 PM][CheckValidUser] Execute SQLcall "AE_SP002_VALIDUSER"('manager','1234')
+[5/16/2017 11:31:07 PM][ExecuteNonQuery_DR] Starting Function
+[5/16/2017 11:31:07 PM][ExecuteNonQuery_DR] SQL Query : call "AE_SP002_VALIDUSER"('manager','1234')
+[5/16/2017 11:31:07 PM][ExecuteNonQuery_DR] Before adding Parameters
+[5/16/2017 11:31:07 PM][ExecuteNonQuery_DR] After adding parameters
+[5/16/2017 11:31:07 PM][ExecuteNonQuery_DR] Completed with ERROR
+[5/16/2017 11:31:23 PM][CheckValidUser] Execute SQLcall "AE_SP002_VALIDUSER"('manager','1234')
+[5/16/2017 11:31:39 PM][ExecuteNonQuery_DR] Starting Function
+[5/16/2017 11:31:52 PM][ExecuteNonQuery_DR] SQL Query : call "AE_SP002_VALIDUSER"('manager','1234')
+[5/16/2017 11:31:52 PM][ExecuteNonQuery_DR] Before adding Parameters
+[5/16/2017 11:31:54 PM][ExecuteNonQuery_DR] After adding parameters
+[5/16/2017 11:32:35 PM][ExecuteNonQuery_DR] Completed with SUCCESS
+[5/16/2017 11:32:44 PM][CheckValidUser] Ending Function
+[5/16/2017 11:32:45 PM][CheckValidUser] Completed With SUCCESS 
+[5/16/2017 11:33:07 PM][CheckValidUser] Validate Login Function
+[5/16/2017 11:33:07 PM][CheckValidUser] Getting the Json Input 1 from web  '[{"sUserName":"manager","sPassword":"1234"}]'
+[5/16/2017 11:33:07 PM][JsonStringToDataTable()] Starting Function 
+[5/16/2017 11:33:07 PM][CheckValidUser] Execute SQLcall "AE_SP002_VALIDUSER"('manager','1234')
+[5/16/2017 11:33:07 PM][ExecuteNonQuery_DR] Starting Function
+[5/16/2017 11:33:07 PM][ExecuteNonQuery_DR] SQL Query : call "AE_SP002_VALIDUSER"('manager','1234')
+[5/16/2017 11:33:07 PM][ExecuteNonQuery_DR] Before adding Parameters
+[5/16/2017 11:33:07 PM][ExecuteNonQuery_DR] After adding parameters
+[5/16/2017 11:33:07 PM][ExecuteNonQuery_DR] Completed with ERROR
+[5/16/2017 11:33:07 PM][CheckValidUser] Completed With ERROR  
+[5/16/2017 11:34:21 PM][] Starting Function
+[5/16/2017 11:34:21 PM][] Execute SQLcall "AE_SP001_GETALLUSERS"
+[5/16/2017 11:34:21 PM][ExecuteSQLQuery()] SQL Query : call "AE_SP001_GETALLUSERS"
+[5/16/2017 11:34:21 PM][ExecuteSQLQuery()] Before adding Parameters
+[5/16/2017 11:34:21 PM][ExecuteSQLQuery()] After adding parameters
+[5/16/2017 11:34:21 PM][ExecuteSQLQuery()] Completed with ERROR
+[5/16/2017 11:34:21 PM][] Completed With ERROR  
+[5/16/2017 11:34:58 PM][CheckValidUser] Validate Login Function
+[5/16/2017 11:34:58 PM][CheckValidUser] Getting the Json Input 1 from web  '[{"sUserName":"manager","sPassword":"1234"}]'
+[5/16/2017 11:34:58 PM][JsonStringToDataTable()] Starting Function 
+[5/16/2017 11:34:58 PM][CheckValidUser] Execute SQLcall "AE_SP002_VALIDUSER"('manager','1234')
+[5/16/2017 11:34:58 PM][ExecuteNonQuery_DR] Starting Function
+[5/16/2017 11:34:58 PM][ExecuteNonQuery_DR] SQL Query : call "AE_SP002_VALIDUSER"('manager','1234')
+[5/16/2017 11:34:58 PM][ExecuteNonQuery_DR] Before adding Parameters
+[5/16/2017 11:34:58 PM][ExecuteNonQuery_DR] After adding parameters
+[5/16/2017 11:34:58 PM][ExecuteNonQuery_DR] Completed with ERROR
+[5/16/2017 11:34:58 PM][CheckValidUser] Completed With ERROR  
+[5/16/2017 11:37:51 PM][CheckValidUser] Validate Login Function
+[5/16/2017 11:37:51 PM][CheckValidUser] Getting the Json Input 1 from web  '[{"sUserName":"manager","sPassword":"1234"}]'
+[5/16/2017 11:37:51 PM][JsonStringToDataTable()] Starting Function 
+[5/16/2017 11:37:51 PM][CheckValidUser] Execute SQLcall "AE_SP002_VALIDUSER"('manager','1234')
+[5/16/2017 11:37:51 PM][ExecuteNonQuery_DR] Starting Function
+[5/16/2017 11:37:51 PM][ExecuteNonQuery_DR] SQL Query : call "AE_SP002_VALIDUSER"('manager','1234')
+[5/16/2017 11:37:51 PM][ExecuteNonQuery_DR] Before adding Parameters
+[5/16/2017 11:37:51 PM][ExecuteNonQuery_DR] After adding parameters
+[5/16/2017 11:37:51 PM][ExecuteNonQuery_DR] Completed with SUCCESS
+[5/16/2017 11:37:51 PM][CheckValidUser] Ending Function
+[5/16/2017 11:37:51 PM][CheckValidUser] Completed With SUCCESS 
+[5/16/2017 11:38:02 PM][CheckValidUser] Validate Login Function
+[5/16/2017 11:38:02 PM][CheckValidUser] Getting the Json Input 1 from web  '[{"sUserName":"manager","sPassword":"12345"}]'
+[5/16/2017 11:38:02 PM][JsonStringToDataTable()] Starting Function 
+[5/16/2017 11:38:02 PM][CheckValidUser] Execute SQLcall "AE_SP002_VALIDUSER"('manager','12345')
+[5/16/2017 11:38:02 PM][ExecuteNonQuery_DR] Starting Function
+[5/16/2017 11:38:02 PM][ExecuteNonQuery_DR] SQL Query : call "AE_SP002_VALIDUSER"('manager','12345')
+[5/16/2017 11:38:02 PM][ExecuteNonQuery_DR] Before adding Parameters
+[5/16/2017 11:38:02 PM][ExecuteNonQuery_DR] After adding parameters
+[5/16/2017 11:38:02 PM][ExecuteNonQuery_DR] Completed with SUCCESS
+[5/16/2017 11:38:02 PM][CheckValidUser] Ending Function
+[5/16/2017 11:38:02 PM][CheckValidUser] Completed With SUCCESS 
+[5/16/2017 11:38:14 PM][CheckValidUser] Validate Login Function
+[5/16/2017 11:38:14 PM][CheckValidUser] Getting the Json Input 1 from web  '[{"sUserName":"manager1","sPassword":"123"}]'
+[5/16/2017 11:38:14 PM][JsonStringToDataTable()] Starting Function 
+[5/16/2017 11:38:14 PM][CheckValidUser] Execute SQLcall "AE_SP002_VALIDUSER"('manager1','123')
+[5/16/2017 11:38:14 PM][ExecuteNonQuery_DR] Starting Function
+[5/16/2017 11:38:14 PM][ExecuteNonQuery_DR] SQL Query : call "AE_SP002_VALIDUSER"('manager1','123')
+[5/16/2017 11:38:14 PM][ExecuteNonQuery_DR] Before adding Parameters
+[5/16/2017 11:38:14 PM][ExecuteNonQuery_DR] After adding parameters
+[5/16/2017 11:38:14 PM][ExecuteNonQuery_DR] Completed with SUCCESS
+[5/16/2017 11:38:14 PM][CheckValidUser] Ending Function
+[5/16/2017 11:38:14 PM][CheckValidUser] Completed With SUCCESS 

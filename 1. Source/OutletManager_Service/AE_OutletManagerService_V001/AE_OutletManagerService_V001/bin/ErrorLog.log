@@ -29,3 +29,7 @@ ERROR [HY000] [SAP AG][LIBODBCHDB32 DLL][HDBODBC32] General error;-10821 Session
 [5/15/2017 8:05:25 PM][                CheckValidUser] No data exists for the row/column.
 [5/15/2017 8:08:26 PM][                CheckValidUser] No data exists for the row/column.
 [5/15/2017 8:08:42 PM][                CheckValidUser] No data exists for the row/column.
+[5/16/2017 11:29:53 PM][                CheckValidUser] No data exists for the row/column.
+[5/16/2017 11:33:07 PM][                CheckValidUser] No data exists for the row/column.
+[5/16/2017 11:34:21 PM][                              ] ERROR [S1000] [SAP AG][LIBODBCHDB32 DLL][HDBODBC32] General error;430 invalidated procedure: AE_SP001_GETALLUSERS: line 1 col 6 (at pos 5)
+[5/16/2017 11:34:58 PM][                CheckValidUser] No data exists for the row/column.

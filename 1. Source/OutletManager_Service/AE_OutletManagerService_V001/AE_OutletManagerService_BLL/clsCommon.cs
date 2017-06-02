@@ -180,7 +180,14 @@ namespace AE_OutletManagerService_BLL
                 oCmd.Connection = oCon;
                 oCmd.CommandTimeout = 120;
                 oDr = oCmd.ExecuteReader();
-                iResult = Convert.ToInt16(oDr[0]);
+                if (oDr.Read() && oDr.GetValue(0) != DBNull.Value)
+                {
+                    iResult = Convert.ToInt16(oDr[0]);
+                }
+                else
+                {
+                    iResult = 0;
+                }
                 oCon.Close();
                 if (p_iDebugMode == DEBUG_ON) oLog.WriteToDebugLogFile("Completed with SUCCESS", sFuncName);
             }

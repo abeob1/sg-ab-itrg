@@ -177,25 +177,27 @@ namespace AE_OutletManagerService_V001
 
                 if (iValid == 1)
                 {
-                    sResult = "SUCCESS";
+                    objResult.Result = "SUCCESS";
+                    objResult.DisplayMessage = "Login successfully";
                 }
                 else if (iValid == 2)
                 {
-                    sResult = "INCORRECT USERNAME";
+                    objResult.Result = "FAILURE";
+                    objResult.DisplayMessage = "Incorrect UserName";
                 }
                 else if (iValid == 3)
                 {
-                    sResult = "INCORRECT PASSWORD";
+                    objResult.Result = "FAILURE";
+                    objResult.DisplayMessage = "Incorrect Password";
                 }
                 else
                 {
-                    sResult = "FAILURE";
+                    objResult.Result = "FAILURE";
+                    objResult.DisplayMessage = "Incorrect UserName/Password";
                 }
 
                 oLog.WriteToDebugLogFile("Ending Function", sFuncName);
                 oLog.WriteToDebugLogFile("Completed With SUCCESS ", sFuncName);
-                objResult.Result = "SUCCESS";
-                objResult.DisplayMessage = "Delivery Order Completed successfully";
                 lstResult.Add(objResult);
                 Context.Response.Output.Write(js.Serialize(lstResult));
             }
