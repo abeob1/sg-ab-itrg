@@ -25,9 +25,9 @@ function ($scope, $rootScope, $http, $window, $cookies, US) {
            console.log(response.data);
            if (response.data[0].Result == "SUCCESS" && response.data[0].Result !== undefined) {
                //$cookies.put('MenuInfo', JSON.stringify(response.data.MenuInfo));
-               $cookies.put('UserData', JSON.stringify(response.data));
+               $cookies.put('UserName', $scope.userId);
                $cookies.put('Islogin', "true");
-               window.location = "Dashboard.html";
+               window.location = "Dashboard.aspx";
            }
            else
                alert(response.data[0].DisplayMessage);
