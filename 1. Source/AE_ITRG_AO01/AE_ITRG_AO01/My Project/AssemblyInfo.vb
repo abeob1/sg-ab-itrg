@@ -11,8 +11,8 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyTitle("AE_ITRG_AO01")> 
 <Assembly: AssemblyDescription("Master Data Replication")> 
 <Assembly: AssemblyCompany("Microsoft")> 
-<Assembly: AssemblyProduct("Budget Upload")> 
-<Assembly: AssemblyCopyright("Copyright © Microsoft 2015")> 
+<Assembly: AssemblyProduct("Master Data Replication")> 
+<Assembly: AssemblyCopyright("Copyright © Microsoft 2016")> 
 <Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(False)>

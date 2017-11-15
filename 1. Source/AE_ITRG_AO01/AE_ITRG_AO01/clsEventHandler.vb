@@ -1148,7 +1148,7 @@ Namespace AE_ITRG_AO01
                                                                     If oDV_BPSetup.Count > 0 Then
                                                                         For S As Integer = 0 To oDV_BPSetup.Count - 1
                                                                             If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Calling Connect To TargetCompany() for UOM Groups Posting", sFuncName)
-                                                                            SBO_Application.StatusBar.SetText("Connecting to the Target Company" & oDICompany(S).CompanyDB, SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success)
+                                                                            SBO_Application.StatusBar.SetText("Connecting to the Target Company" & oDV_BPSetup.Item(S).Item("Name").ToString, SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success)
                                                                             Dim targetent As String = oDV_BPSetup.Item(S).Item("Name").ToString
                                                                             If ConnectToTargetCompany(oDICompany(S), oDV_BPSetup.Item(S).Item("Name").ToString, oDV_BPSetup.Item(S).Item("U_UserName").ToString, oDV_BPSetup.Item(S).Item("U_Password").ToString, sErrDesc) <> RTN_SUCCESS Then
                                                                                 GoTo 111
@@ -1539,6 +1539,8 @@ Namespace AE_ITRG_AO01
                                                                     ''=========================================================================================================
                                                                     If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Calling Item Master Setup for Item Master Setting", sFuncName)
                                                                     Dim rvcount As Integer = oDV_BPSetup.Count
+                                                                    Dim oTargetRset As SAPbobsCOM.Recordset = Nothing
+
                                                                     Fllag = False
                                                                     oDV_BPSetup.RowFilter = "U_ItemCodes ='Y'"
                                                                     ReDim oDICompany(oDV_BPSetup.Count)
@@ -1554,8 +1556,8 @@ Namespace AE_ITRG_AO01
                                                                             SBO_Application.SetStatusBarMessage("Connecting to the target company is Successful " & oDV_BPSetup.Item(S).Item("Name").ToString, SAPbouiCOM.BoMessageTime.bmt_Short, False)
                                                                             If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Connecting to the target company is Successful " & oDICompany(S).CompanyDB, sFuncName)
                                                                             oDICompany(S).StartTransaction()
-
                                                                             SBO_Application.SetStatusBarMessage("Started Master Data Synchronization " & oDV_BPSetup.Item(S).Item("Name").ToString, SAPbouiCOM.BoMessageTime.bmt_Short, False)
+                                                                            oTargetRset = oDICompany(S).GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
 
                                                                             Dim oItemMaster As SAPbobsCOM.Items = p_oDICompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oItems)
                                                                             Dim oTargetItemMaster As SAPbobsCOM.Items = oDICompany(S).GetBusinessObject(SAPbobsCOM.BoObjectTypes.oItems)
@@ -1564,18 +1566,31 @@ Namespace AE_ITRG_AO01
                                                                             Dim flg1 As Boolean = False
                                                                             Dim SucFlag As Boolean = False
                                                                             Dim groupno As String = String.Empty
+                                                                            Dim sItemGroup As Integer = 0
 
+                                                                           
                                                                             If oTargetItemMaster.GetByKey(oDT_Entities.Rows(J).Item("Code")) = True Then
                                                                                 flg1 = True
                                                                             End If
                                                                             If oItemMaster.GetByKey(oDT_Entities.Rows(J).Item("Code")) Then
+
+                                                                                sSQL = "SELECT T0.""ItmsGrpCod"" FROM OITB T0 WHERE T0.""ItmsGrpNam""  = (select Top 1 TT.""ItmsGrpNam"" from " & p_oDICompany.CompanyDB & ".OITB TT where TT.""ItmsGrpCod"" = '" & oItemMaster.ItemsGroupCode & "' )"
+                                                                                If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Group Code " & sSQL, sFuncName)
+                                                                                oTargetRset.DoQuery(sSQL)
+                                                                                If oTargetRset.RecordCount = 0 Then
+                                                                                    ItemGroup(oDICompany(S), oItemMaster.ItemsGroupCode, sItemGroup, sErrDesc)
+                                                                                Else
+                                                                                    sItemGroup = oTargetRset.Fields.Item("ItmsGrpCod").Value
+                                                                                End If
+
                                                                                 If flg1 = True Then
                                                                                     If oTargetItemMaster.GetByKey(oItemMaster.ItemCode) Then
 
                                                                                         oTargetItemMaster.ItemName = oItemMaster.ItemName
                                                                                         oTargetItemMaster.ItemType = oItemMaster.ItemType
                                                                                         oTargetItemMaster.ForeignName = oItemMaster.ForeignName
-                                                                                        oTargetItemMaster.ItemsGroupCode = oItemMaster.ItemsGroupCode
+                                                                                        oTargetItemMaster.ItemsGroupCode = sItemGroup
+                                                                                        '' oTargetItemMaster.ItemsGroupCode = oItemMaster.ItemsGroupCode
                                                                                         oTargetItemMaster.InventoryItem = oItemMaster.InventoryItem
                                                                                         oTargetItemMaster.SalesItem = oItemMaster.SalesItem
                                                                                         oTargetItemMaster.PurchaseItem = oItemMaster.PurchaseItem
@@ -1653,11 +1668,18 @@ Namespace AE_ITRG_AO01
                                                                                         oTargetItemMaster.LeadTime = oItemMaster.LeadTime
                                                                                         oTargetItemMaster.ToleranceDays = oItemMaster.ToleranceDays
                                                                                         oTargetItemMaster.IssueMethod = oItemMaster.IssueMethod
-                                                                                        oTargetItemMaster.ShipType = oItemMaster.ShipType
+                                                                                        If Not String.IsNullOrEmpty(oItemMaster.ShipType) Then
+                                                                                            oTargetItemMaster.ShipType = oItemMaster.ShipType
+                                                                                        End If
+
                                                                                         oTargetItemMaster.SWW = oItemMaster.SWW
                                                                                         oTargetItemMaster.CustomsGroupCode = oItemMaster.CustomsGroupCode
-                                                                                        oTargetItemMaster.PurchaseVATGroup = oItemMaster.PurchaseVATGroup
-                                                                                        oTargetItemMaster.SalesVATGroup = oItemMaster.SalesVATGroup
+                                                                                        If Not String.IsNullOrEmpty(oItemMaster.PurchaseVATGroup) Then
+                                                                                            oTargetItemMaster.PurchaseVATGroup = oItemMaster.PurchaseVATGroup
+                                                                                        End If
+                                                                                        If Not String.IsNullOrEmpty(oItemMaster.SalesVATGroup) Then
+                                                                                            oTargetItemMaster.SalesVATGroup = oItemMaster.SalesVATGroup
+                                                                                        End If
                                                                                         oTargetItemMaster.BarCode = oItemMaster.BarCode
 
                                                                                         If oTargetItemMaster.PreferredVendors.Count > 0 Then
@@ -1685,7 +1707,7 @@ Namespace AE_ITRG_AO01
                                                                                     oTargetItemMaster.ItemName = oItemMaster.ItemName
                                                                                     oTargetItemMaster.ItemType = oItemMaster.ItemType
                                                                                     oTargetItemMaster.ForeignName = oItemMaster.ForeignName
-                                                                                    oTargetItemMaster.ItemsGroupCode = oItemMaster.ItemsGroupCode
+                                                                                    oTargetItemMaster.ItemsGroupCode = sItemGroup ''oItemMaster.ItemsGroupCode
                                                                                     oTargetItemMaster.InventoryItem = oItemMaster.InventoryItem
                                                                                     oTargetItemMaster.SalesItem = oItemMaster.SalesItem
                                                                                     oTargetItemMaster.PurchaseItem = oItemMaster.PurchaseItem
@@ -1752,11 +1774,19 @@ Namespace AE_ITRG_AO01
                                                                                     oTargetItemMaster.ToleranceDays = oItemMaster.ToleranceDays
                                                                                     oTargetItemMaster.IssueMethod = oItemMaster.IssueMethod
                                                                                     oTargetItemMaster.BarCode = oItemMaster.BarCode
-                                                                                    oTargetItemMaster.ShipType = oItemMaster.ShipType
+                                                                                    If Not String.IsNullOrEmpty(oItemMaster.ShipType) Then
+                                                                                        oTargetItemMaster.ShipType = oItemMaster.ShipType
+                                                                                    End If
+                                                                                    '' oTargetItemMaster.ShipType = oItemMaster.ShipType
                                                                                     oTargetItemMaster.SWW = oItemMaster.SWW
                                                                                     oTargetItemMaster.CustomsGroupCode = oItemMaster.CustomsGroupCode
-                                                                                    oTargetItemMaster.PurchaseVATGroup = oItemMaster.PurchaseVATGroup
-                                                                                    oTargetItemMaster.SalesVATGroup = oItemMaster.SalesVATGroup
+
+                                                                                    If Not String.IsNullOrEmpty(oItemMaster.PurchaseVATGroup) Then
+                                                                                        oTargetItemMaster.PurchaseVATGroup = oItemMaster.PurchaseVATGroup
+                                                                                    End If
+                                                                                    If Not String.IsNullOrEmpty(oItemMaster.SalesVATGroup) Then
+                                                                                        oTargetItemMaster.SalesVATGroup = oItemMaster.SalesVATGroup
+                                                                                    End If
 
                                                                                     If oItemMaster.PreferredVendors.Count > 0 Then
                                                                                         For i As Integer = 0 To oItemMaster.PreferredVendors.Count - 1
@@ -1870,30 +1900,30 @@ Namespace AE_ITRG_AO01
                                                             oDV_BPSetup.RowFilter = "U_PriceLists ='Y'"
                                                             Dim SucFlag As Boolean = False
 
-                                                            Dim sqry2 As String = " select T0.""ItemCode"",T0.""PriceList"",T1.""ListName"", T0.""Price"",T0.""Currency"",T0.""BasePLNum"", T0.""Ovrwritten"" from ITM1 T0  INNER JOIN OPLN T1 ON T0.""PriceList"" = T1.""ListNum""  where ""Price"" > 0 and T0.""Ovrwritten"" = 'Y' ORDER BY T0.""ItemCode"";"
-                                                            Dim oRset2 As SAPbobsCOM.Recordset = p_oDICompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
-                                                            oRset2.DoQuery(sqry2)
-                                                            oDT_ItemPricelist = New DataTable
-                                                            oDT_ItemPricelist = ConvertRecordset(oRset2)
-                                                            Dim dtcount1 As Integer = oDT_ItemPricelist.Rows.Count
-                                                            Dim oDV_ItemPricelist As New DataView(oDT_ItemPricelist)
-                                                            Dim dvcount2 As Integer = oDV_ItemPricelist.Count
+                                                            'Dim sqry2 As String = " select T0.""ItemCode"",T0.""PriceList"",T1.""ListName"", T0.""Price"",T0.""Currency"",T0.""BasePLNum"", T0.""Ovrwritten"" from ITM1 T0  INNER JOIN OPLN T1 ON T0.""PriceList"" = T1.""ListNum""  where ""Price"" > 0 and T0.""Ovrwritten"" = 'Y' ORDER BY T0.""ItemCode"";"
+                                                            'Dim oRset2 As SAPbobsCOM.Recordset = p_oDICompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
+                                                            'oRset2.DoQuery(sqry2)
+                                                            'oDT_ItemPricelist = New DataTable
+                                                            'oDT_ItemPricelist = ConvertRecordset(oRset2)
+                                                            'Dim dtcount1 As Integer = oDT_ItemPricelist.Rows.Count
+                                                            'Dim oDV_ItemPricelist As New DataView(oDT_ItemPricelist)
+                                                            'Dim dvcount2 As Integer = oDV_ItemPricelist.Count
 
-                                                            Dim sqry3 As String = "select distinct ""ItemCode"" from ITM1 where  ""Price"" > 0 and ""ItemCode"" not in ('R00001','L10001') ORDER BY ""ItemCode"";"
-                                                            Dim RItemSets As SAPbobsCOM.Recordset = p_oDICompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
-                                                            RItemSets.DoQuery(sqry3)
-                                                            oDT_Itemlists = New DataTable
-                                                            oDT_Itemlists = ConvertRecordset(RItemSets)
-                                                            Dim dtcount12 As Integer = oDT_Itemlists.Rows.Count
+                                                            'Dim sqry3 As String = "select distinct ""ItemCode"" from ITM1 where  ""Price"" > 0 and ""ItemCode"" not in ('R00001','L10001') ORDER BY ""ItemCode"";"
+                                                            'Dim RItemSets As SAPbobsCOM.Recordset = p_oDICompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
+                                                            'RItemSets.DoQuery(sqry3)
+                                                            'oDT_Itemlists = New DataTable
+                                                            'oDT_Itemlists = ConvertRecordset(RItemSets)
+                                                            'Dim dtcount12 As Integer = oDT_Itemlists.Rows.Count
 
-                                                            Dim sqry1 As String = "select distinct T0.""ItemCode"",T0.""BasePLNum"", T2.""ListName"", T1.""Price""from ITM1 T0 INNER JOIN OPLN T2 ON T0.""BasePLNum"" = T2.""ListNum"" INNER JOIN ITM1 T1 ON T1.""PriceList"" = T0.""BasePLNum"" and T1.""ItemCode"" = T0.""ItemCode"" where T0.""Price"" > 0 and T1.""Price""> 0 ORDER BY T0.""ItemCode"",T0.""BasePLNum"";"
-                                                            Dim RPLSets As SAPbobsCOM.Recordset = p_oDICompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
-                                                            RPLSets.DoQuery(sqry1)
-                                                            oDT_Pricelists = New DataTable
-                                                            oDT_Pricelists = ConvertRecordset(RPLSets)
-                                                            Dim dtcount3 As Integer = oDT_Pricelists.Rows.Count
-                                                            Dim oDV_PriceLists As New DataView(oDT_Pricelists)
-                                                            Dim dvcount3 As Integer = oDV_PriceLists.Count
+                                                            'Dim sqry1 As String = "select distinct T0.""ItemCode"",T0.""BasePLNum"", T2.""ListName"", T1.""Price""from ITM1 T0 INNER JOIN OPLN T2 ON T0.""BasePLNum"" = T2.""ListNum"" INNER JOIN ITM1 T1 ON T1.""PriceList"" = T0.""BasePLNum"" and T1.""ItemCode"" = T0.""ItemCode"" where T0.""Price"" > 0 and T1.""Price""> 0 ORDER BY T0.""ItemCode"",T0.""BasePLNum"";"
+                                                            'Dim RPLSets As SAPbobsCOM.Recordset = p_oDICompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
+                                                            'RPLSets.DoQuery(sqry1)
+                                                            'oDT_Pricelists = New DataTable
+                                                            'oDT_Pricelists = ConvertRecordset(RPLSets)
+                                                            'Dim dtcount3 As Integer = oDT_Pricelists.Rows.Count
+                                                            'Dim oDV_PriceLists As New DataView(oDT_Pricelists)
+                                                            'Dim dvcount3 As Integer = oDV_PriceLists.Count
 
                                                             ReDim oDICompany(oDV_BPSetup.Count)
                                                             Dim dvcount1 As Integer = oDV_BPSetup.Count
@@ -1911,95 +1941,96 @@ Namespace AE_ITRG_AO01
                                                                     SBO_Application.SetStatusBarMessage("Started Master Data Synchronization " & oDV_BPSetup.Item(S).Item("Name").ToString, SAPbouiCOM.BoMessageTime.bmt_Short, False)
 
                                                                     If CreatePricelistMaster(oDICompany(S), sErrDesc) <> False Then
-                                                                        If oDICompany(S).InTransaction = False Then oDICompany(S).StartTransaction()
+                                                                        SucFlag = True
+                                                                        'If oDICompany(S).InTransaction = False Then oDICompany(S).StartTransaction()
 
-                                                                        Dim oPriceLists As SAPbobsCOM.Items = p_oDICompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oItems)
-                                                                        Dim oTargetPriceLists As SAPbobsCOM.Items = oDICompany(S).GetBusinessObject(SAPbobsCOM.BoObjectTypes.oItems)
-                                                                        If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Starting Function", sFuncName)
+                                                                        'Dim oPriceLists As SAPbobsCOM.Items = p_oDICompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oItems)
+                                                                        'Dim oTargetPriceLists As SAPbobsCOM.Items = oDICompany(S).GetBusinessObject(SAPbobsCOM.BoObjectTypes.oItems)
+                                                                        'If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Starting Function", sFuncName)
 
-                                                                        If oDT_Itemlists.Rows.Count > 0 Then
-                                                                            For I As Integer = 0 To oDT_Itemlists.Rows.Count - 1
-                                                                                If oTargetPriceLists.GetByKey(oDT_Itemlists.Rows(I).Item("ItemCode").ToString) Then
-                                                                                    Dim oitm As String = oDT_Itemlists.Rows(I).Item("ItemCode").ToString
-                                                                                    oDV_PriceLists.RowFilter = "ItemCode ='" & oDT_Itemlists.Rows(I).Item("ItemCode").ToString & "'"
-                                                                                    Dim Itemcount As Integer = oDV_PriceLists.Count
-                                                                                    p_oSBOApplication.StatusBar.SetText("Price lists are updating for the item..." & oDT_Itemlists.Rows(I).Item("ItemCode").ToString, SAPbouiCOM.BoMessageTime.bmt_Long, SAPbouiCOM.BoStatusBarMessageType.smt_Success)
-                                                                                    If oDV_PriceLists.Count > 0 Then
-                                                                                        TestFlg = False
-                                                                                        'Dim listname As String = oDV_ItemPricelist.Item(I).Item("ListName").ToString
-                                                                                        'CheckFlag = False
-                                                                                        For T As Integer = 0 To oDV_PriceLists.Count - 1
-                                                                                            CheckFlag = False
-                                                                                            Dim listname As String = oDV_PriceLists.Item(T).Item("ListName").ToString
-                                                                                            Dim oChecking As SAPbobsCOM.Recordset = oDICompany(S).GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
-                                                                                            oChecking.DoQuery(String.Format("Select ""ListNum"" from ""OPLN"" where ""ListName"" = '{0}'", oDV_PriceLists.Item(T).Item("ListName").ToString))
-                                                                                            If oChecking.RecordCount = 1 Then
-                                                                                                TestFlg = True
-                                                                                                CheckFlag = True
-                                                                                                PricelistNo = oChecking.Fields.Item(0).Value
-                                                                                            End If
-                                                                                            If CheckFlag = True Then
-                                                                                                For M As Integer = 0 To oTargetPriceLists.PriceList.Count - 1
-                                                                                                    oTargetPriceLists.PriceList.SetCurrentLine(M)
-                                                                                                    If oTargetPriceLists.PriceList.PriceList = PricelistNo Then
-                                                                                                        Dim Prc1 As Double = Convert.ToDouble(oDV_PriceLists.Item(T).Item("Price"))
-                                                                                                        oTargetPriceLists.PriceList.Price = Prc1
-                                                                                                        oTargetPriceLists.PriceList.Currency = oTargetPriceLists.PriceList.Currency
-                                                                                                        Exit For
-                                                                                                    End If
-                                                                                                Next
-                                                                                            End If
-                                                                                        Next
-                                                                                    End If
+                                                                        'If oDT_Itemlists.Rows.Count > 0 Then
+                                                                        '    For I As Integer = 0 To oDT_Itemlists.Rows.Count - 1
+                                                                        '        If oTargetPriceLists.GetByKey(oDT_Itemlists.Rows(I).Item("ItemCode").ToString) Then
+                                                                        '            Dim oitm As String = oDT_Itemlists.Rows(I).Item("ItemCode").ToString
+                                                                        '            oDV_PriceLists.RowFilter = "ItemCode ='" & oDT_Itemlists.Rows(I).Item("ItemCode").ToString & "'"
+                                                                        '            Dim Itemcount As Integer = oDV_PriceLists.Count
+                                                                        '            p_oSBOApplication.StatusBar.SetText("Price lists are updating for the item..." & oDT_Itemlists.Rows(I).Item("ItemCode").ToString, SAPbouiCOM.BoMessageTime.bmt_Long, SAPbouiCOM.BoStatusBarMessageType.smt_Success)
+                                                                        '            If oDV_PriceLists.Count > 0 Then
+                                                                        '                TestFlg = False
+                                                                        '                'Dim listname As String = oDV_ItemPricelist.Item(I).Item("ListName").ToString
+                                                                        '                'CheckFlag = False
+                                                                        '                For T As Integer = 0 To oDV_PriceLists.Count - 1
+                                                                        '                    CheckFlag = False
+                                                                        '                    Dim listname As String = oDV_PriceLists.Item(T).Item("ListName").ToString
+                                                                        '                    Dim oChecking As SAPbobsCOM.Recordset = oDICompany(S).GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
+                                                                        '                    oChecking.DoQuery(String.Format("Select ""ListNum"" from ""OPLN"" where ""ListName"" = '{0}'", oDV_PriceLists.Item(T).Item("ListName").ToString))
+                                                                        '                    If oChecking.RecordCount = 1 Then
+                                                                        '                        TestFlg = True
+                                                                        '                        CheckFlag = True
+                                                                        '                        PricelistNo = oChecking.Fields.Item(0).Value
+                                                                        '                    End If
+                                                                        '                    If CheckFlag = True Then
+                                                                        '                        For M As Integer = 0 To oTargetPriceLists.PriceList.Count - 1
+                                                                        '                            oTargetPriceLists.PriceList.SetCurrentLine(M)
+                                                                        '                            If oTargetPriceLists.PriceList.PriceList = PricelistNo Then
+                                                                        '                                Dim Prc1 As Double = Convert.ToDouble(oDV_PriceLists.Item(T).Item("Price"))
+                                                                        '                                oTargetPriceLists.PriceList.Price = Prc1
+                                                                        '                                oTargetPriceLists.PriceList.Currency = oTargetPriceLists.PriceList.Currency
+                                                                        '                                Exit For
+                                                                        '                            End If
+                                                                        '                        Next
+                                                                        '                    End If
+                                                                        '                Next
+                                                                        '            End If
 
-                                                                                    oDV_ItemPricelist.RowFilter = "ItemCode ='" & oDT_Itemlists.Rows(I).Item("ItemCode").ToString & "' and Ovrwritten = 'Y'"
-                                                                                    Dim Itemcount2 As Integer = oDV_PriceLists.Count
-                                                                                    CheckFlag = False
-                                                                                    If oDV_ItemPricelist.Count > 0 Then
-                                                                                        TestFlg = False
-                                                                                        'Dim listname As String = oDV_ItemPricelist.Item(I).Item("ListName").ToString
-                                                                                        For U As Integer = 0 To oDV_ItemPricelist.Count - 1
-                                                                                            Dim oChecking As SAPbobsCOM.Recordset = oDICompany(S).GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
-                                                                                            oChecking.DoQuery(String.Format("Select ""ListNum"" from ""OPLN"" where ""ListName"" = '{0}'", oDV_ItemPricelist.Item(U).Item("ListName").ToString))
-                                                                                            If oChecking.RecordCount = 1 Then
-                                                                                                TestFlg = True
-                                                                                                CheckFlag = True
-                                                                                                PricelistNo = oChecking.Fields.Item(0).Value
-                                                                                            End If
-                                                                                            If CheckFlag = True Then
-                                                                                                For M As Integer = 0 To oTargetPriceLists.PriceList.Count - 1
-                                                                                                    oTargetPriceLists.PriceList.SetCurrentLine(M)
-                                                                                                    If oTargetPriceLists.PriceList.PriceList = PricelistNo Then
-                                                                                                        Dim Prc As Double = Convert.ToDouble(oDV_ItemPricelist.Item(U).Item("Price"))
-                                                                                                        oTargetPriceLists.PriceList.Price = Prc
-                                                                                                        Exit For
-                                                                                                    End If
-                                                                                                Next
-                                                                                            End If
-                                                                                        Next
-                                                                                    End If
+                                                                        '            oDV_ItemPricelist.RowFilter = "ItemCode ='" & oDT_Itemlists.Rows(I).Item("ItemCode").ToString & "' and Ovrwritten = 'Y'"
+                                                                        '            Dim Itemcount2 As Integer = oDV_PriceLists.Count
+                                                                        '            CheckFlag = False
+                                                                        '            If oDV_ItemPricelist.Count > 0 Then
+                                                                        '                TestFlg = False
+                                                                        '                'Dim listname As String = oDV_ItemPricelist.Item(I).Item("ListName").ToString
+                                                                        '                For U As Integer = 0 To oDV_ItemPricelist.Count - 1
+                                                                        '                    Dim oChecking As SAPbobsCOM.Recordset = oDICompany(S).GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
+                                                                        '                    oChecking.DoQuery(String.Format("Select ""ListNum"" from ""OPLN"" where ""ListName"" = '{0}'", oDV_ItemPricelist.Item(U).Item("ListName").ToString))
+                                                                        '                    If oChecking.RecordCount = 1 Then
+                                                                        '                        TestFlg = True
+                                                                        '                        CheckFlag = True
+                                                                        '                        PricelistNo = oChecking.Fields.Item(0).Value
+                                                                        '                    End If
+                                                                        '                    If CheckFlag = True Then
+                                                                        '                        For M As Integer = 0 To oTargetPriceLists.PriceList.Count - 1
+                                                                        '                            oTargetPriceLists.PriceList.SetCurrentLine(M)
+                                                                        '                            If oTargetPriceLists.PriceList.PriceList = PricelistNo Then
+                                                                        '                                Dim Prc As Double = Convert.ToDouble(oDV_ItemPricelist.Item(U).Item("Price"))
+                                                                        '                                oTargetPriceLists.PriceList.Price = Prc
+                                                                        '                                Exit For
+                                                                        '                            End If
+                                                                        '                        Next
+                                                                        '                    End If
+                                                                        '                Next
+                                                                        '            End If
 
-                                                                                    SucFlag = False
-                                                                                    If TestFlg = True Then
-                                                                                        ErrerCode = oTargetPriceLists.Update()
-                                                                                        If ErrerCode <> 0 Then
-                                                                                            oDICompany(S).GetLastError(ErrerCode, sErrDesc)
-                                                                                            p_oSBOApplication.StatusBar.SetText("Updating Price Lists to Target Company '" & oDICompany(S).CompanyDB & "' Failed.." & sErrDesc, SAPbouiCOM.BoMessageTime.bmt_Medium, SAPbouiCOM.BoStatusBarMessageType.smt_Error)
-                                                                                            If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Updating Price Lists to Target Company '" & oDICompany(S).CompanyDB & "' Failed.." + " - " + sErrDesc, sFuncName)
-                                                                                            SucFlag = False
-                                                                                            GoTo 114
-                                                                                        Else
-                                                                                            p_oSBOApplication.StatusBar.SetText("Updating Price Lists to Target Company '" & oDICompany(S).CompanyDB & "' Successful..", SAPbouiCOM.BoMessageTime.bmt_Medium, SAPbouiCOM.BoStatusBarMessageType.smt_Success)
-                                                                                            If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Updating Price Lists to Target Company '" & oDICompany(S).CompanyDB & "' Successful..", sFuncName)
-                                                                                            SucFlag = True
-                                                                                        End If
-                                                                                    End If
+                                                                        '            SucFlag = False
+                                                                        '            If TestFlg = True Then
+                                                                        '                ErrerCode = oTargetPriceLists.Update()
+                                                                        '                If ErrerCode <> 0 Then
+                                                                        '                    oDICompany(S).GetLastError(ErrerCode, sErrDesc)
+                                                                        '                    p_oSBOApplication.StatusBar.SetText("Updating Price Lists to Target Company '" & oDICompany(S).CompanyDB & "' Failed.." & sErrDesc, SAPbouiCOM.BoMessageTime.bmt_Medium, SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+                                                                        '                    If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Updating Price Lists to Target Company '" & oDICompany(S).CompanyDB & "' Failed.." + " - " + sErrDesc, sFuncName)
+                                                                        '                    SucFlag = False
+                                                                        '                    GoTo 114
+                                                                        '                Else
+                                                                        '                    p_oSBOApplication.StatusBar.SetText("Updating Price Lists to Target Company '" & oDICompany(S).CompanyDB & "' Successful..", SAPbouiCOM.BoMessageTime.bmt_Medium, SAPbouiCOM.BoStatusBarMessageType.smt_Success)
+                                                                        '                    If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Updating Price Lists to Target Company '" & oDICompany(S).CompanyDB & "' Successful..", sFuncName)
+                                                                        '                    SucFlag = True
+                                                                        '                End If
+                                                                        '            End If
 
-                                                                                End If
-                                                                            Next
-                                                                        End If
-                                                                        System.Runtime.InteropServices.Marshal.ReleaseComObject(oPriceLists)
-                                                                        System.Runtime.InteropServices.Marshal.ReleaseComObject(oTargetPriceLists)
+                                                                        '        End If
+                                                                        '    Next
+                                                                        'End If
+                                                                        'System.Runtime.InteropServices.Marshal.ReleaseComObject(oPriceLists)
+                                                                        'System.Runtime.InteropServices.Marshal.ReleaseComObject(oTargetPriceLists)
                                                                     End If
                                                                     If SucFlag = False Then
 114:
@@ -2023,7 +2054,7 @@ Namespace AE_ITRG_AO01
                                                                                 End If
                                                                             End If
                                                                         Next
-                                                                        Exit For
+                                                                        '' Exit For
                                                                     Else
                                                                         Fllag = True
                                                                         SBO_Application.SetStatusBarMessage("Price Lists Replicated Successfully on.. " & oDV_BPSetup.Item(S).Item("Name").ToString, SAPbouiCOM.BoMessageTime.bmt_Short, False)
@@ -5448,6 +5479,53 @@ Namespace AE_ITRG_AO01
             Catch ex As Exception
                 p_oSBOApplication.StatusBar.SetText("Price List Master Creation Failed...", SAPbouiCOM.BoMessageTime.bmt_Medium, SAPbouiCOM.BoStatusBarMessageType.smt_Error)
                 CreatePricelistMaster = False
+            Finally
+            End Try
+        End Function
+
+        Public Function ItemGroup(ByVal targetCompany As SAPbobsCOM.Company, ByVal groupno As Integer, ByRef TargetGroupno As Integer, ByRef sErrDesc As String) As Long
+            Try
+                Dim oItemGroups As SAPbobsCOM.ItemGroups = p_oDICompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oItemGroups)
+                Dim oTargetItemGroup As SAPbobsCOM.ItemGroups = targetCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oItemGroups)
+                Dim ErrerCode As Integer = 0
+                sFuncName = "ItemGroup()"
+                If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Starting Function  ", sFuncName)
+                If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Source Group no " & groupno, sFuncName)
+                If oItemGroups.GetByKey(groupno) Then
+                    oTargetItemGroup.GroupName = oItemGroups.GroupName
+                    oTargetItemGroup.PlanningSystem = oItemGroups.PlanningSystem
+                    oTargetItemGroup.ProcurementMethod = oItemGroups.ProcurementMethod
+                    oTargetItemGroup.OrderMultiple = oItemGroups.OrderMultiple
+                    oTargetItemGroup.MinimumOrderQuantity = oItemGroups.MinimumOrderQuantity
+                    oTargetItemGroup.LeadTime = oItemGroups.LeadTime
+                    oTargetItemGroup.ToleranceDays = oItemGroups.ToleranceDays
+                    oTargetItemGroup.InventorySystem = oItemGroups.InventorySystem
+                    Dim cycle As String = oItemGroups.CycleCode
+                    If oItemGroups.CycleCode <> 0 Then
+                        oTargetItemGroup.OrderInterval = oItemGroups.OrderInterval
+                    End If
+                    ErrerCode = oTargetItemGroup.Add()
+                    If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("ErrerCode " & ErrerCode, sFuncName)
+                    If ErrerCode <> 0 Then
+                        TargetGroupno = -1
+                        sErrDesc = targetCompany.GetLastErrorDescription()
+                        Call WriteToLogFile(sErrDesc, sFuncName)
+                        If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Completed with ERROR", sFuncName)
+                    Else
+                        targetCompany.GetNewObjectCode(TargetGroupno)
+                    End If
+
+
+                End If
+
+
+
+                'CreatePricelistMaster = True
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oItemGroups)
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(oTargetItemGroup)
+            Catch ex As Exception
+                p_oSBOApplication.StatusBar.SetText("Item Group Creation Failed...", SAPbouiCOM.BoMessageTime.bmt_Medium, SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+                ItemGroup = False
             Finally
             End Try
         End Function

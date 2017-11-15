@@ -6,6 +6,9 @@ Namespace AE_ITRG_AO01
         Dim v_ErrMsg As String = ""
         Sub TableCreation()
             Try
+                Dim orset As SAPbobsCOM.Recordset = Nothing
+                Dim sSQL As String = String.Empty
+
                 Me.Target_Database_Credentials_Table()
                 Me.BP_Master_Setup_Table()
                 Me.Item_Master_Setup_Table()
@@ -14,6 +17,19 @@ Namespace AE_ITRG_AO01
                 Me.Create_InterCompany_Integration_Table()
                 Me.User_Defined_Fields()
                 Me.TargetDB_Incoming_Payment_Accounts()
+
+                orset = p_oDICompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
+                sSQL = "DROP TABLE ""INTEGRATION"""
+                Try
+                    orset.DoQuery(sSQL)
+                Catch ex As Exception
+                End Try
+                sSQL = "CREATE COLUMN TABLE ""INTEGRATION"" (""UNIQUEID"" INTEGER CS_INT,""MASTERTYPE"" VARCHAR(100),""TRANSTYPE"" VARCHAR(100),""CODE"" VARCHAR(100), " & _
+  " ""NAME"" VARCHAR(100),""SYNCSTATUS"" VARCHAR(100),""SYNCDATE"" DATE CS_DAYDATE,""ERRORMSG"" VARCHAR(254)) UNLOAD PRIORITY 5 AUTO MERGE "
+                orset.DoQuery(sSQL)
+
+                p_oSBOApplication.MessageBox("Tables Created Successfully ... !", 1, "Ok")
+
             Catch ex As Exception
                 p_oSBOApplication.StatusBar.SetText("Table Creation Failed: " & ex.Message, SAPbouiCOM.BoMessageTime.bmt_Medium, SAPbouiCOM.BoStatusBarMessageType.smt_Warning)
             Finally
@@ -22,15 +38,15 @@ Namespace AE_ITRG_AO01
 
         Sub BP_Master_Setup_Table()
             Try
-                CreateTable("AE_TB001_BPSETUP", "Business Partner Setup", SAPbobsCOM.BoUTBTableType.bott_NoObject)
 
+                CreateTable("AE_TB001_BPSETUP", "Business Partner Setup", SAPbobsCOM.BoUTBTableType.bott_NoObject)
                 CreateUserFieldsComboBoxWithLinkedTable("@AE_TB001_BPSETUP", "TargetDB", "Target DB", SAPbobsCOM.BoFieldTypes.db_Alpha, 10, SAPbobsCOM.BoFldSubTypes.st_None, "AE_TB004_TARCRE")
                 CreateUserFieldsComboBox("@AE_TB001_BPSETUP", "Customers", "Customers", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, , , DocType, "N")
                 CreateUserFieldsComboBox("@AE_TB001_BPSETUP", "Vendors", "Vendors", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, , , DocType, "N")
                 CreateUserFieldsComboBox("@AE_TB001_BPSETUP", "Leads", "Leads", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, , , DocType, "N")
                 CreateUserFieldsComboBox("@AE_TB001_BPSETUP", "PayTerms", "PayTerms", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, , , DocType, "N")
                 CreateUserFieldsComboBox("@AE_TB001_BPSETUP", "BPGroups", "BPGroups", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, , , DocType, "N")
-
+              
             Catch ex As Exception
                 p_oSBOApplication.StatusBar.SetText("Business Parter Setup Creation Failed: " & ex.Message, SAPbouiCOM.BoMessageTime.bmt_Medium, SAPbouiCOM.BoStatusBarMessageType.smt_Warning)
             Finally
