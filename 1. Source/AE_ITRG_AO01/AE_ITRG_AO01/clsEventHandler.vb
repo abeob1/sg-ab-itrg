@@ -377,25 +377,73 @@ Namespace AE_ITRG_AO01
                                         Case "c_masttype"
                                             If pVal.ItemChanged = True Then
                                                 Dim oForm As SAPbouiCOM.Form = p_oSBOApplication.Forms.ActiveForm
+                                                Dim oCombo As SAPbouiCOM.ComboBox = oForm.Items.Item("c_Type").Specific
                                                 Dim oMastertype As SAPbouiCOM.ComboBox = oForm.Items.Item("c_masttype").Specific
+
+                                                If oCombo.ValidValues.Count > 0 Then
+                                                    For imjs As Integer = oCombo.ValidValues.Count - 1 To 0 Step -1
+                                                        oCombo.ValidValues.Remove(imjs, SAPbouiCOM.BoSearchKey.psk_Index)
+                                                    Next
+                                                End If
+
                                                 If oMastertype.Selected.Value = "F" Then
                                                     oForm.Items.Item("chk_post").Visible = True
                                                     oForm.Items.Item("Chk_exch").Visible = True
                                                     oForm.Items.Item("Chk_Prices").Visible = False
                                                     oForm.Items.Item("Chk_bin").Visible = False
+                                                    oCombo.ValidValues.Add("-", "Select")
+                                                    oCombo.ValidValues.Add(0, "Currency")
+                                                    oCombo.ValidValues.Add(1, "CostCenter")
+                                                    oCombo.ValidValues.Add(2, "COA")
+                                                    oCombo.Select(0, SAPbouiCOM.BoSearchKey.psk_Index)
+
                                                 ElseIf oMastertype.Selected.Value = "I" Then
                                                     oForm.Items.Item("Chk_Prices").Visible = True
                                                     oForm.Items.Item("Chk_bin").Visible = True
                                                     oForm.Items.Item("chk_post").Visible = False
                                                     oForm.Items.Item("Chk_exch").Visible = False
+                                                    oCombo.ValidValues.Add("-", "Select")
+                                                    oCombo.ValidValues.Add(0, "ItemGroup")
+                                                    oCombo.ValidValues.Add(1, "UOMGroup")
+                                                    oCombo.ValidValues.Add(2, "Items")
+                                                    oCombo.ValidValues.Add(3, "BOM")
+                                                    oCombo.Select(0, SAPbouiCOM.BoSearchKey.psk_Index)
+
                                                 Else
                                                     oForm.Items.Item("Chk_Prices").Visible = False
                                                     oForm.Items.Item("chk_post").Visible = False
                                                     oForm.Items.Item("Chk_exch").Visible = False
                                                     oForm.Items.Item("Chk_bin").Visible = False
+                                                    oCombo.ValidValues.Add("-", "Select")
+                                                    oCombo.ValidValues.Add(0, "BPGroup")
+                                                    oCombo.ValidValues.Add(1, "PaymentTerms")
+                                                    oCombo.ValidValues.Add(2, "Customer")
+                                                    oCombo.ValidValues.Add(3, "Suppliers")
+                                                    oCombo.ValidValues.Add(4, "Lead")
+                                                    oCombo.Select(0, SAPbouiCOM.BoSearchKey.psk_Index)
                                                 End If
-                                                LoadReplicationDetails()
+                                                ''LoadReplicationDetails()
                                             End If
+
+                                        Case "c_Type"
+                                            If pVal.ItemChanged = True Then
+                                                Dim oForm As SAPbouiCOM.Form = p_oSBOApplication.Forms.ActiveForm
+                                                Dim oCombo As SAPbouiCOM.ComboBox = oForm.Items.Item("c_Type").Specific
+                                                Dim oMastertype As SAPbouiCOM.ComboBox = oForm.Items.Item("c_masttype").Specific
+                                                Dim sMastertype As String = String.Empty
+                                                Dim sType As String = String.Empty
+                                                Select Case oMastertype.Selected.Value
+                                                    Case "I"
+                                                        sMastertype = "ITEMMASTER"
+                                                    Case "B"
+                                                        sMastertype = "BPMASTER"
+                                                    Case "F"
+                                                        sMastertype = "FINANCEMASTER"
+                                                End Select
+                                                sType = oCombo.Selected.Description
+                                                LoadReplicationDetails(sMastertype, sType)
+                                            End If
+
                                     End Select
                                 Case SAPbouiCOM.BoEventTypes.et_CLICK
                                     Select Case pVal.ItemUID
@@ -432,8 +480,8 @@ Namespace AE_ITRG_AO01
                                         Case "Refresh"
                                             Try
                                                 Dim oForm As SAPbouiCOM.Form = p_oSBOApplication.Forms.ActiveForm
-                                                If oForm.Items.Item("c_masttype").Specific.value.ToString.Trim() <> "" Then
-                                                    LoadReplicationDetails()
+                                                If oForm.Items.Item("c_masttype").Specific.value.ToString.Trim() <> "" And oForm.Items.Item("c_type").Specific.value.ToString.Trim() Then
+                                                    LoadReplicationDetails(oForm.Items.Item("c_masttype").Specific.value.ToString.Trim(), oForm.Items.Item("c_type").Specific.value.ToString.Trim())
                                                 End If
                                             Catch ex As Exception
 
@@ -489,6 +537,7 @@ Namespace AE_ITRG_AO01
                                                                 ''=========================================================================================================
                                                                 '------------------------------- BP Master Data Replication ----------------------------------------------
                                                                 ''=========================================================================================================
+                                                                p_oSBOApplication.RemoveWindowsMessage(SAPbouiCOM.BoWindowsMessageType.bo_WM_TIMER, True)
                                                                 If (oDT_Entities.Rows(J).Item("TransType").ToString = "Customer" Or oDT_Entities.Rows(J).Item("TransType").ToString = "Lead" Or oDT_Entities.Rows(J).Item("TransType").ToString = "Suppliers") Then
                                                                     If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Calling BP Setup()", sFuncName)
                                                                     Dim rvcount As Integer = oDV_BPSetup.Count
@@ -918,11 +967,12 @@ Namespace AE_ITRG_AO01
                                                         ' Dim dv As New DataView(dt)
 
                                                         Dim rrr As String = oMatrix.RowCount
+                                                        p_oSBOApplication.RemoveWindowsMessage(SAPbouiCOM.BoWindowsMessageType.bo_WM_TIMER, True)
 
                                                         If (oDT_Entities.Rows.Count > 0 And oDV_BPSetup.Count > 0) Then
                                                             For J As Integer = 0 To oDT_Entities.Rows.Count - 1
 
-                                                                If (oDT_Entities.Rows(J).Item("TransType").ToString = "ItemGroups") Then
+                                                                If (oDT_Entities.Rows(J).Item("TransType").ToString = "ItemGroup") Then
                                                                     ''=========================================================================================================
                                                                     '------------------------------- Item Groups Replication ----------------------------------------------
                                                                     ''=========================================================================================================
@@ -1135,7 +1185,7 @@ Namespace AE_ITRG_AO01
                                                                             oMatrix.Columns.Item("ErrMsg").Cells.Item(row1).Specific.value = "SUCCESS"
                                                                         End If
                                                                     End If
-                                                                ElseIf (oDT_Entities.Rows(J).Item("TransType").ToString = "UOMGroups") Then
+                                                                ElseIf (oDT_Entities.Rows(J).Item("TransType").ToString = "UOMGroup") Then
                                                                     ''=========================================================================================================
                                                                     '------------------------------- UOM Groups Replication ----------------------------------------------
                                                                     ''=========================================================================================================
@@ -1300,6 +1350,8 @@ Namespace AE_ITRG_AO01
                                                                     ''=========================================================================================================
                                                                     '------------------------------- Bill of Material Replication ----------------------------------------------
                                                                     ''=========================================================================================================
+
+                                                                    p_oSBOApplication.RemoveWindowsMessage(SAPbouiCOM.BoWindowsMessageType.bo_WM_TIMER, True)
                                                                     If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Calling Item Master Setup for BOM Setting", sFuncName)
                                                                     Dim rvcount As Integer = oDV_BPSetup.Count
                                                                     Fllag = False
@@ -1533,7 +1585,7 @@ Namespace AE_ITRG_AO01
                                                                             oMatrix.Columns.Item("ErrMsg").Cells.Item(row1).Specific.value = "SUCCESS"
                                                                         End If
                                                                     End If
-                                                                ElseIf (oDT_Entities.Rows(J).Item("TransType").ToString = "ItemCodes") Then
+                                                                ElseIf (oDT_Entities.Rows(J).Item("TransType").ToString = "Items") Then
                                                                     ''=========================================================================================================
                                                                     '------------------------------- Item Master Data Replication ----------------------------------------------
                                                                     ''=========================================================================================================
@@ -1547,6 +1599,7 @@ Namespace AE_ITRG_AO01
                                                                     Dim dvcount1 As Integer = oDV_BPSetup.Count
                                                                     If oDV_BPSetup.Count > 0 Then
                                                                         For S As Integer = 0 To oDV_BPSetup.Count - 1
+                                                                            p_oSBOApplication.RemoveWindowsMessage(SAPbouiCOM.BoWindowsMessageType.bo_WM_TIMER, True)
                                                                             If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Calling Connect To Target Company() for Item Codes Posting", sFuncName)
                                                                             SBO_Application.SetStatusBarMessage("Connecting to the Target Company" & oDV_BPSetup.Item(S).Item("Name").ToString, SAPbouiCOM.BoMessageTime.bmt_Short, False)
                                                                             Dim targetent As String = oDV_BPSetup.Item(S).Item("Name").ToString
@@ -1568,7 +1621,7 @@ Namespace AE_ITRG_AO01
                                                                             Dim groupno As String = String.Empty
                                                                             Dim sItemGroup As Integer = 0
 
-                                                                           
+
                                                                             If oTargetItemMaster.GetByKey(oDT_Entities.Rows(J).Item("Code")) = True Then
                                                                                 flg1 = True
                                                                             End If
@@ -1935,11 +1988,11 @@ Namespace AE_ITRG_AO01
                                                                     If ConnectToTargetCompany(oDICompany(S), oDV_BPSetup.Item(S).Item("Name").ToString, oDV_BPSetup.Item(S).Item("U_UserName").ToString, oDV_BPSetup.Item(S).Item("U_Password").ToString, sErrDesc) <> RTN_SUCCESS Then
                                                                         GoTo 114
                                                                     End If
-                                                                    SBO_Application.SetStatusBarMessage("Connecting to the target company Successful " & oDV_BPSetup.Item(S).Item("Name").ToString, SAPbouiCOM.BoMessageTime.bmt_Short, False)
-                                                                    If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Connecting to the target company Successfull  " & oDICompany(S).CompanyDB, sFuncName)
 
+                                                                    If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Started Master Data Synchronization " & oDV_BPSetup.Item(S).Item("Name").ToString, sFuncName)
                                                                     SBO_Application.SetStatusBarMessage("Started Master Data Synchronization " & oDV_BPSetup.Item(S).Item("Name").ToString, SAPbouiCOM.BoMessageTime.bmt_Short, False)
 
+                                                                    If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Calling function CreatePricelistMaster()".ToString, sFuncName)
                                                                     If CreatePricelistMaster(oDICompany(S), sErrDesc) <> False Then
                                                                         SucFlag = True
                                                                         'If oDICompany(S).InTransaction = False Then oDICompany(S).StartTransaction()
@@ -2108,6 +2161,7 @@ Namespace AE_ITRG_AO01
                                                             'Dim dvcount1 As Integer = oDV_BPSetup.Count
                                                             If oDV_BPSetup.Count > 0 Then
                                                                 For S As Integer = 0 To oDV_BPSetup.Count - 1
+                                                                    p_oSBOApplication.RemoveWindowsMessage(SAPbouiCOM.BoWindowsMessageType.bo_WM_TIMER, True)
                                                                     If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Calling Connect To Target Company() for Bin Location Posting", sFuncName)
                                                                     SBO_Application.SetStatusBarMessage("Connecting to the Target Company" & oDV_BPSetup.Item(S).Item("Name").ToString, SAPbouiCOM.BoMessageTime.bmt_Short, False)
                                                                     Dim targetent As String = oDV_BPSetup.Item(S).Item("Name").ToString
@@ -3258,7 +3312,7 @@ Namespace AE_ITRG_AO01
 
         End Sub
 
-        Function LoadReplicationDetails()
+        Function LoadReplicationDetails(ByVal sMaster As String, ByVal sType As String)
             Dim FormUID As SAPbouiCOM.Form = p_oSBOApplication.Forms.ActiveForm
             Dim sFuncName As String = String.Empty
             Dim oMatrix As SAPbouiCOM.Matrix = Nothing
@@ -3272,7 +3326,7 @@ Namespace AE_ITRG_AO01
 
                 If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Calling Replication Details()", sFuncName)
 
-                sQry = "select  ROW_NUMBER() OVER (ORDER BY T0.""UNIQUEID"") AS ""ROW"", T0.""UNIQUEID"", T0.""TRANSTYPE"", T0.""CODE"", T0.""NAME"", T0.""SYNCSTATUS"" from ""INTEGRATION"" T0 WHERE T0.""MASTERTYPE"" = case '" & FormUID.Items.Item("c_masttype").Specific.value & "' when 'B' THEN 'BPMASTER' WHEN 'I' THEN 'ITEMMASTER' WHEN 'F' THEN 'FINANCEMASTER' END AND T0.""SYNCSTATUS"" = 'NO'"
+                sQry = "select  ROW_NUMBER() OVER (ORDER BY T0.""UNIQUEID"") AS ""ROW"", T0.""UNIQUEID"", T0.""TRANSTYPE"", T0.""CODE"", T0.""NAME"", T0.""SYNCSTATUS"" from ""INTEGRATION"" T0 WHERE T0.""MASTERTYPE"" = '" & sMaster & "' AND T0.""TRANSTYPE"" = '" & sType & "' AND T0.""SYNCSTATUS"" = 'NO'"
                 If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("SQL " & sQry, sFuncName)
                 oMatrix = FormUID.Items.Item("5").Specific
 
@@ -3309,7 +3363,7 @@ Namespace AE_ITRG_AO01
                 oCmb3.Checked = False
                 Dim oCmb4 As SAPbouiCOM.CheckBox = FormUID.Items.Item("Chk_Select").Specific
                 oCmb4.Checked = False
-               
+
                 LoadReplicationDetails = RTN_SUCCESS
                 If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Completed with SUCCESS", sFuncName)
                 oMatrix.AutoResizeColumns()
@@ -5421,7 +5475,7 @@ Namespace AE_ITRG_AO01
                 targetCompany.StartTransaction()
                 CreatePricelistMaster = False
                 Dim CheckFlag As Boolean = False
-
+                If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Starting Function", sFuncName)
                 oPricelistMaster = p_oDICompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oPriceLists)
                 oTargetPricelistsMaster = targetCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oPriceLists)
 
@@ -5435,7 +5489,9 @@ Namespace AE_ITRG_AO01
 
                 For T As Integer = 0 To oDT_PricelistsMaster.Rows.Count - 1
                     CheckFlag = False
+                    p_oSBOApplication.RemoveWindowsMessage(SAPbouiCOM.BoWindowsMessageType.bo_WM_TIMER, True)
                     Dim listname As String = oDT_PricelistsMaster.Rows(T).Item("ListName").ToString
+                    If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Price List Name  " & listname, sFuncName)
                     Dim oChecking As SAPbobsCOM.Recordset = targetCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
                     oChecking.DoQuery(String.Format("Select ""ListNum"" from ""OPLN"" where ""ListName"" = '{0}'", oDT_PricelistsMaster.Rows(T).Item("ListName").ToString))
                     If oChecking.RecordCount = 0 Then
@@ -5449,15 +5505,17 @@ Namespace AE_ITRG_AO01
                                 oTargetPricelistsMaster.RoundingRule = oPricelistMaster.RoundingRule
                                 oTargetPricelistsMaster.GroupNum = oPricelistMaster.GroupNum
                                 oTargetPricelistsMaster.Active = oPricelistMaster.Active
-
+                                If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Attempting to add  " & listname, sFuncName)
                                 ErrorCode = oTargetPricelistsMaster.Add
                                 If ErrorCode <> 0 Then
+                                    If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug(listname & " - Price List Creating Failed..'" & targetCompany.CompanyDB & "'.." & sErrDesc, sFuncName)
                                     targetCompany.GetLastError(ErrorCode, sErrDesc)
-                                    p_oSBOApplication.StatusBar.SetText("Price List Creating Failed..'" & targetCompany.CompanyDB & "'.." & sErrDesc, SAPbouiCOM.BoMessageTime.bmt_Medium, SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+                                    p_oSBOApplication.StatusBar.SetText(listname & " - Price List Creating Failed..'" & targetCompany.CompanyDB & "'.." & sErrDesc, SAPbouiCOM.BoMessageTime.bmt_Medium, SAPbouiCOM.BoStatusBarMessageType.smt_Error)
                                     CreatePricelistMaster = False
                                 Else
+                                    If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug(listname & " - Price List Created Successfully on ..." & targetCompany.CompanyDB, sFuncName)
                                     CreatePricelistMaster = True
-                                    p_oSBOApplication.StatusBar.SetText("Price List Created Successfully on ..." & targetCompany.CompanyDB, SAPbouiCOM.BoMessageTime.bmt_Medium, SAPbouiCOM.BoStatusBarMessageType.smt_Success)
+                                    p_oSBOApplication.StatusBar.SetText(listname & " - Price List Created Successfully on ..." & targetCompany.CompanyDB, SAPbouiCOM.BoMessageTime.bmt_Medium, SAPbouiCOM.BoStatusBarMessageType.smt_Success)
                                 End If
                             End If
                         Catch ex As Exception

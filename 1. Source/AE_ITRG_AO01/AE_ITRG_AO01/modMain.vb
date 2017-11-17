@@ -113,15 +113,15 @@ Namespace AE_ITRG_AO01
                 'Call WriteToLogFile_Debug("Calling DisplayStatus()", sFuncName)
                 'Call DisplayStatus(Nothing, "Addon starting.....please wait....", sErrDesc)
                 '--------------Hide for Table creation add-on
-                ''If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Creating Event handler class", sFuncName)
-                ''p_oEventHandler = New clsEventHandler(p_oSBOApplication, p_oDICompany)
+                If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Creating Event handler class", sFuncName)
+                p_oEventHandler = New clsEventHandler(p_oSBOApplication, p_oDICompany)
 
-                ''If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Calling AddMenuItems()", sFuncName)
-                ''p_oEventHandler.AddMenuItems()
+                If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Calling AddMenuItems()", sFuncName)
+                p_oEventHandler.AddMenuItems()
                 '--------------------------------------------
 
                 '' If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Creating Tables and Fields... ", sFuncName)
-                oTableCreation.TableCreation()
+                '' oTableCreation.TableCreation()
                 ''  
                 If p_iDebugMode = DEBUG_ON Then Call WriteToLogFile_Debug("Addon started successfully", "Main()")
 

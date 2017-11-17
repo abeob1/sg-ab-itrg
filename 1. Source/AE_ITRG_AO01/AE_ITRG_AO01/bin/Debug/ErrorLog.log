@@ -3670,3 +3670,10 @@
 [11/15/2017 00:12:37][                               ShowErr()] Unable to cast COM object of type 'SAPbouiCOM.ApplicationClass' to interface type 'SAPbouiCOM.IApplication'. This operation failed because the QueryInterface call on the COM component for the interface with IID '{D1F75D47-137C-4335-AC2A-3FE209831B6A}' failed due to the following error: System call failed. (Exception from HRESULT: 0x80010100 (RPC_E_SYS_CALL_FAILED)).
 [11/15/2017 00:12:39][             SBO_Application_ItemEvent()] Unable to cast COM object of type 'SAPbouiCOM.ItemEventClass' to interface type 'SAPbouiCOM.IItemEvent'. This operation failed because the QueryInterface call on the COM component for the interface with IID '{21925973-F8AC-47F9-A3D0-298612AEB94E}' failed due to the following error: System call failed. (Exception from HRESULT: 0x80010100 (RPC_E_SYS_CALL_FAILED)).
 [11/15/2017 00:12:39][                               ShowErr()] Unable to cast COM object of type 'SAPbouiCOM.ApplicationClass' to interface type 'SAPbouiCOM.IApplication'. This operation failed because the QueryInterface call on the COM component for the interface with IID '{D1F75D47-137C-4335-AC2A-3FE209831B6A}' failed due to the following error: System call failed. (Exception from HRESULT: 0x80010100 (RPC_E_SYS_CALL_FAILED)).
+[11/15/2017 21:54:13][             SBO_Application_ItemEvent()] Valid Value - Value already exists  [66000-61]
+[11/15/2017 21:59:36][             SBO_Application_ItemEvent()] Valid Value - Value already exists  [66000-61]
+[11/15/2017 22:00:09][             SBO_Application_ItemEvent()] Valid Value - Value already exists  [66000-61]
+[11/15/2017 22:05:42][             SBO_Application_ItemEvent()] Valid Value - Value does not Exist  [66000-62]
+[11/15/2017 22:29:13][              Load_Replication_Details()] Invalid query tree  [300-33]. The SQL error is -1
+[11/15/2017 22:36:09][                      ConnectDICompSSO()] Could not connect to the database server; check the connection  [131-183]
+[11/15/2017 22:36:09][                                  Main()] Could not connect to the database server; check the connection  [131-183]

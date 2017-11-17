@@ -78,7 +78,7 @@ E:\SVN\ITRG\1. Source\AE_ITRG_AO01\AE_ITRG_AO01\obj\Debug\AE_ITRG_AO01.pdb
 E:\SVN\ITRG\1. Source\AE_ITRG_AO01\AE_ITRG_AO01\bin\Debug\AE_ITRG_AO01.exe
 E:\SVN\ITRG\1. Source\AE_ITRG_AO01\AE_ITRG_AO01\bin\Debug\AE_ITRG_AO01.pdb
 E:\SVN\ITRG\1. Source\AE_ITRG_AO01\AE_ITRG_AO01\bin\Debug\AE_ITRG_AO01.xml
-E:\SVN\ITRG\1. Source\AE_ITRG_AO01\AE_ITRG_AO01\obj\Debug\AE_ITRG_AO01.vbprojResolveAssemblyReference.cache
 E:\SVN\ITRG\1. Source\AE_ITRG_AO01\AE_ITRG_AO01\obj\Debug\AE_ITRG_AO01.Browse.resources
 E:\SVN\ITRG\1. Source\AE_ITRG_AO01\AE_ITRG_AO01\obj\Debug\AE_ITRG_AO01.Resources.resources
 E:\SVN\ITRG\1. Source\AE_ITRG_AO01\AE_ITRG_AO01\obj\Debug\AE_ITRG_AO01.vbproj.GenerateResource.Cache
+E:\SVN\ITRG\1. Source\AE_ITRG_AO01\AE_ITRG_AO01\obj\Debug\AE_ITRG_AO01.vbprojResolveAssemblyReference.cache
